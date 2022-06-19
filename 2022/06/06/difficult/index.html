@@ -9,7 +9,7 @@
     
     <title>
         
-            Hello World |
+            怎么都过不了 |
         
         仓仓后花园
     </title>
@@ -176,7 +176,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation">Hello World</span>
+            <span class="title-hover-animation">怎么都过不了</span>
         </div>
 
         
@@ -195,10 +195,21 @@
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fas fa-edit"></i>&nbsp;
-        <span class="pc">2022-06-06 11:21:40</span>
-        <span class="mobile">2022-06-06 11:21</span>
+        <span class="pc">2022-06-06 11:25:44</span>
+        <span class="mobile">2022-06-06 11:25</span>
     </span>
     
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E7%AE%97%E6%B3%95/">算法</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
     
 
     
@@ -217,24 +228,26 @@
         
 
         <div class="article-content markdown-body">
-            <p>Welcome to <a class="link"   target="_blank" rel="noopener" href="https://hexo.io/" >Hexo<i class="fas fa-external-link-alt"></i></a>! This is your very first post. Check <a class="link"   target="_blank" rel="noopener" href="https://hexo.io/docs/" >documentation<i class="fas fa-external-link-alt"></i></a> for more info. If you get any problems when using Hexo, you can find the answer in <a class="link"   target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html" >troubleshooting<i class="fas fa-external-link-alt"></i></a> or you can ask me on <a class="link"   target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues" >GitHub<i class="fas fa-external-link-alt"></i></a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+            <h2 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h2><h1 id="codeup"><a href="#codeup" class="headerlink" title="codeup"></a>codeup</h1><h2 id="To-Fill-or-Not-to-Fill"><a href="#To-Fill-or-Not-to-Fill" class="headerlink" title="To Fill or Not to Fill"></a>To Fill or Not to Fill</h2><blockquote>
+<p>健健一直想不出来，我想了个和参考不太一样的方法，初始化每个加油站的start和end，遍历每个加油站可到达的加油站，比较价格，修改start和end。</p>
+</blockquote>
+<p>只过了pat</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//codeup To Fill or Not to Fill</span></span><br><span class="line"><span class="comment">//汽油容量 距离 每个gas可跑距离 汽油站数量</span></span><br><span class="line"><span class="comment">//59		525		19				2</span></span><br><span class="line"><span class="comment">//单价	    距离</span></span><br><span class="line"><span class="comment">//3			314</span></span><br><span class="line"><span class="comment">//3			 0</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> <span class="title class_">station</span> &#123;</span><br><span class="line">	<span class="type">double</span> price;</span><br><span class="line">	<span class="type">double</span> start;</span><br><span class="line">	<span class="type">double</span> end;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">cmp</span><span class="params">(station a, station b)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> a.start &lt; b.start;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="type">int</span> max, meter, per_meter, n;</span><br><span class="line">	station sta[<span class="number">510</span>];</span><br><span class="line">	<span class="keyword">while</span> (cin &gt;&gt; max &gt;&gt; meter &gt;&gt; per_meter &gt;&gt; n) &#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">			cin &gt;&gt; sta[i].price &gt;&gt; sta[i].start;</span><br><span class="line">			sta[i].end = sta[i].start + max * per_meter;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="built_in">sort</span>(sta, sta + n, cmp);</span><br><span class="line">		<span class="comment">/*for (int i = 0; i &lt; n; i++) &#123;</span></span><br><span class="line"><span class="comment">			cout &lt;&lt; &quot;排序结果\n&quot;;</span></span><br><span class="line"><span class="comment">			cout &lt;&lt; sta[i].start &lt;&lt; &quot;  &quot; &lt;&lt; sta[i].end &lt;&lt; &quot; &quot;&lt;&lt;sta[i].price&lt;&lt;endl;</span></span><br><span class="line"><span class="comment">		&#125;*/</span></span><br><span class="line">		<span class="keyword">if</span> (sta[<span class="number">0</span>].start != <span class="number">0</span> || n == <span class="number">0</span>) &#123;</span><br><span class="line">			cout &lt;&lt; <span class="string">&quot;The maximum travel distance = &quot;</span>;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">&quot;%.2f\n&quot;</span>,<span class="number">0.00</span>);</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">			<span class="keyword">if</span> (sta[i].end &gt; meter) &#123;</span><br><span class="line">				sta[i].end = meter;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">for</span> (<span class="type">int</span> j = i + <span class="number">1</span>; j &lt; n; j++) &#123;</span><br><span class="line">				<span class="keyword">if</span> (sta[j].start &lt; sta[i].end) &#123;</span><br><span class="line">					<span class="keyword">if</span> (sta[j].price &lt;= sta[i].price) &#123;<span class="comment">//新的更便宜</span></span><br><span class="line">						<span class="keyword">if</span>(sta[i].start&gt;sta[j].start &amp;&amp;sta[i].end&lt;sta[j].end)&#123;<span class="comment">//被包围</span></span><br><span class="line">							sta[i].end = sta[i].start;</span><br><span class="line">							<span class="keyword">break</span>;</span><br><span class="line">						&#125;</span><br><span class="line">						sta[i].end = sta[j].start;</span><br><span class="line">					&#125;</span><br><span class="line">					<span class="keyword">else</span> &#123;</span><br><span class="line">						sta[j].start = sta[i].end;</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">else</span> &#123;<span class="comment">//没有加油站了</span></span><br><span class="line">					<span class="keyword">break</span>;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="type">double</span> money = <span class="number">0</span>, all_meter = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">			<span class="comment">//cout &lt;&lt; sta[i].start &lt;&lt; &quot;  &quot; &lt;&lt; sta[i].end &lt;&lt; endl;</span></span><br><span class="line">			all_meter += sta[i].end - sta[i].start;</span><br><span class="line">			money += (sta[i].end - sta[i].start) / per_meter * sta[i].price;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (all_meter &lt; meter) &#123;</span><br><span class="line">			cout &lt;&lt; <span class="string">&quot;The maximum travel distance = &quot;</span>;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">&quot;%.2f\n&quot;</span>, all_meter);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">&quot;%.2f\n&quot;</span>, money);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a class="link"   target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html" >Writing<i class="fas fa-external-link-alt"></i></a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a class="link"   target="_blank" rel="noopener" href="https://hexo.io/docs/server.html" >Server<i class="fas fa-external-link-alt"></i></a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a class="link"   target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html" >Generating<i class="fas fa-external-link-alt"></i></a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a class="link"   target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html" >Deployment<i class="fas fa-external-link-alt"></i></a></p>
+<hr>
 
         </div>
 
         
 
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E7%AE%97%E6%B3%95/">#算法</a>&nbsp;
+                    </li>
+                
+            </ul>
         
 
         
@@ -243,18 +256,33 @@
                     <div class="article-prev">
                         <a class="prev"
                            rel="prev"
-                           href="/2022/06/06/difficult/"
+                           href="/2022/06/06/my-new-post/"
                         >
                             <span class="left arrow-icon flex-center">
                               <i class="fas fa-chevron-left"></i>
                             </span>
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">怎么都过不了</span>
+                                <span class="post-nav-title-item">令人头秃的为什么不过</span>
                                 <span class="post-nav-item">Prev posts</span>
                             </span>
                         </a>
                     </div>
                 
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2022/06/06/hello-world/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">Hello World</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
                 
             </div>
         
@@ -455,7 +483,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">输出格式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#codeup"><span class="nav-number"></span> <span class="nav-text">codeup</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#To-Fill-or-Not-to-Fill"><span class="nav-number">1.</span> <span class="nav-text">To Fill or Not to Fill</span></a></li></ol>
     </div>
 </div>
         </aside>
