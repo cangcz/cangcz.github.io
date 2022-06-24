@@ -70,4 +70,46 @@
         <tag>算法</tag>
       </tags>
   </entry>
+  <entry>
+    <title>复杂度</title>
+    <url>/2022/06/20/%E5%A4%8D%E6%9D%82%E5%BA%A6/</url>
+    <content><![CDATA[<table>
+<thead>
+<tr>
+<th align="center">算法</th>
+<th align="center">最坏</th>
+<th align="center">平均</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">快排</td>
+<td align="center">O(n^2)</td>
+<td align="center">O(nlogn)</td>
+</tr>
+<tr>
+<td align="center">随机选择算法</td>
+<td align="center">O(n^2)</td>
+<td align="center">O(N)</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+]]></content>
+      <tags>
+        <tag>算法</tag>
+      </tags>
+  </entry>
 </search>
