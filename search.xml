@@ -55,16 +55,41 @@
   <entry>
     <title>部分正确</title>
     <url>/2022/06/06/%E9%83%A8%E5%88%86%E6%AD%A3%E7%A1%AE/</url>
-    <content><![CDATA[<h5 id="1、科学计数法"><a href="#1、科学计数法" class="headerlink" title="1、科学计数法"></a>1、科学计数法</h5><p>用cout输出大数会产生科学计数法</p>
+    <content><![CDATA[<h3 id="1、科学计数法"><a href="#1、科学计数法" class="headerlink" title="1、科学计数法"></a>1、科学计数法</h3><p>用cout输出大数会产生科学计数法</p>
 <p> iomanip——定义IO流输出输入格式的头文件</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">cout &lt;&lt; fixed &lt;&lt; <span class="built_in">setprecision</span>(<span class="number">0</span>) &lt;&lt; 数据 &lt;&lt; endl;</span><br><span class="line"><span class="comment">//不以科学计数法输出—固定格式+0精度</span></span><br></pre></td></tr></table></figure>
 
-<h5 id="2、取余"><a href="#2、取余" class="headerlink" title="2、取余"></a>2、取余</h5><p>要求对结果的大数取模时，若最后再取模，可能在计算过程中越界，如：</p>
+<h3 id="2、取余"><a href="#2、取余" class="headerlink" title="2、取余"></a>2、取余</h3><p>要求对结果的大数取模时，若最后再取模，可能在计算过程中越界，如：</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">while</span>(i&lt;n)&#123;</span><br><span class="line">	a+=b;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> a%<span class="number">100</span>;</span><br></pre></td></tr></table></figure>
 
 <p>存在公式<br>$$<br>(a\pm b)%p&#x3D;(a%p\pm b%p)%p\<br>(a<em>b)%m&#x3D;(a%m</em>b%m)%m\<br>a^b%m&#x3D;(a%m)^b%m<br>$$<br>因此，可以在循环中取模</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">while</span>(i&lt;n)&#123;</span><br><span class="line">	a=(a+b)%<span class="number">100</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> a;</span><br></pre></td></tr></table></figure>
 
+<h3 id="3、时间超限"><a href="#3、时间超限" class="headerlink" title="3、时间超限"></a>3、时间超限</h3><ul>
+<li><h4 id="输入输出"><a href="#输入输出" class="headerlink" title="输入输出"></a>输入输出</h4><p>利用<strong>cout</strong>和<strong>cin</strong>在数据量大时会直接超时，需使用**printf()<strong>和</strong>scanf()**。</p>
+<ol>
+<li><h5 id="char数组"><a href="#char数组" class="headerlink" title="char数组"></a>char数组</h5><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">char</span> a[<span class="number">10</span>];</span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">&quot;%s&quot;</span>,a);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%s&quot;</span>,a);</span><br></pre></td></tr></table></figure>
+</li>
+<li><h5 id="string"><a href="#string" class="headerlink" title="string"></a>string</h5><p>只能用cin和cout进行输入输出，可利用<code>c_str()</code>转换为char数组。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">string s;</span><br><span class="line">cin&gt;&gt;s;</span><br><span class="line">cout&lt;&lt;s;</span><br><span class="line">printf(&quot;%s&quot;,s.c_str())</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+</ul>
+<h3 id="4、map和哈希表"><a href="#4、map和哈希表" class="headerlink" title="4、map和哈希表"></a>4、map和哈希表</h3><p>​	将学生名字abc9(由三个字母和一个数字组成）对应到表中，利用<code>map&lt;string,int&gt;</code>可能导致存储过大，提示段错误，因此可考虑hash表的形式。</p>
+<ul>
+<li><h4 id="map"><a href="#map" class="headerlink" title="map"></a>map</h4></li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">map&lt;string,<span class="type">int</span>&gt;clas;</span><br><span class="line">clas[<span class="string">&quot;abc9&quot;</span>]=<span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+
+<p>可通过map.count()函数判断某键是否存在。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">clas.<span class="built_in">count</span>(<span class="string">&quot;abc9&quot;</span>);<span class="comment">//1</span></span><br><span class="line">clas.<span class="built_in">count</span>(<span class="string">&quot;aaa8&quot;</span>);<span class="comment">//0</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><h4 id="hash"><a href="#hash" class="headerlink" title="hash"></a>hash</h4></li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//将字母和数字利用ASCII表映射到数字</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">hash</span><span class="params">(<span class="type">char</span> name[<span class="number">5</span>])</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> num=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">3</span>;i++)&#123;</span><br><span class="line">        num=num*<span class="number">26</span>+name[i]-<span class="string">&#x27;A&#x27;</span>;<span class="comment">//注意*26和减&#x27;A&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">    num=num*<span class="number">10</span>+name[<span class="number">3</span>]-<span class="string">&#x27;0&#x27;</span>;<span class="comment">//注意*10和减&#x27;0&#x27;</span></span><br><span class="line">    <span class="keyword">return</span> num;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>转变后姓名对应着索引，可知索引最大是26*26*26*10，创建数组或vector时需注意大小。</p>
 ]]></content>
       <tags>
         <tag>算法</tag>
