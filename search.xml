@@ -73,7 +73,7 @@
   <entry>
     <title>复杂度</title>
     <url>/2022/06/20/%E5%A4%8D%E6%9D%82%E5%BA%A6/</url>
-    <content><![CDATA[<table>
+    <content><![CDATA[<h1 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h1><table>
 <thead>
 <tr>
 <th align="center">算法</th>
@@ -107,9 +107,267 @@
 <td align="center"></td>
 </tr>
 </tbody></table>
+<h1 id="素数"><a href="#素数" class="headerlink" title="素数"></a>素数</h1><table>
+<thead>
+<tr>
+<th align="center">算法</th>
+<th align="center">复杂度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">[2,sqrt(n)]</td>
+<td align="center">O(sqrt(n))</td>
+</tr>
+<tr>
+<td align="center">埃氏筛法</td>
+<td align="center">O(nloglogn)</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody></table>
 ]]></content>
       <tags>
         <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>PaddleClas图像分类</title>
+    <url>/2022/07/01/PaddleClas%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/</url>
+    <content><![CDATA[<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>本文将讲解利用PaddleCals实现对图像进行分类的任务，利用AI Studio平台训练，并通过猫十二分类例子讲解如何进行训练与预测。</p>
+<h2 id="版本"><a href="#版本" class="headerlink" title="版本"></a>版本</h2><ul>
+<li>PaddlePaddle 2.1.2</li>
+<li>PaddleClas 2.3</li>
+</ul>
+<h2 id="下载PaddleClas"><a href="#下载PaddleClas" class="headerlink" title="下载PaddleClas"></a>下载PaddleClas</h2><p>此时可以将PaddleClas下载到项目中。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">!git clone https://gitee.com/paddlepaddle/PaddleClas/ --depth=1</span><br></pre></td></tr></table></figure>
+
+<h2 id="预处理"><a href="#预处理" class="headerlink" title="预处理"></a>预处理</h2><h4 id="1-解压数据集"><a href="#1-解压数据集" class="headerlink" title="1.解压数据集"></a>1.解压数据集</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 解压缩数据集</span><br><span class="line">!unzip -qoa data/data8136/cat_data_sets_models.zip -d data/</span><br></pre></td></tr></table></figure>
+<h4 id="2-划分数据集"><a href="#2-划分数据集" class="headerlink" title="2.划分数据集"></a>2.划分数据集</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import os</span><br><span class="line">from sklearn.model_selection import train_test_split</span><br><span class="line">import pandas as pd</span><br><span class="line">import numpy as np</span><br><span class="line"></span><br><span class="line">def break_data(target, rate=0.2):</span><br><span class="line">    origin_dataset = pd.read_csv(&quot;/home/aistudio/data/data_sets/cat_12/train_list.txt&quot;, delimiter=&quot;\t&quot;, header=None)  # 加入参数</span><br><span class="line">    # train_data, test_data = train_test_split(origin_dataset, test_size=rate)</span><br><span class="line">    train_data,eval_data=train_test_split(origin_dataset, test_size=rate)</span><br><span class="line">    train_filename = os.path.join(target, &#x27;train.txt&#x27;)</span><br><span class="line">    # test_filename = os.path.join(target, &#x27;test.txt&#x27;)</span><br><span class="line">    eval_filename = os.path.join(target, &#x27;eval.txt&#x27;)</span><br><span class="line"></span><br><span class="line">    train_data.to_csv(train_filename, index=False, sep=&quot;\t&quot;, header=None)</span><br><span class="line">    # test_data.to_csv(test_filename, index=False, sep=&quot;\t&quot;, header=None)</span><br><span class="line">    eval_data.to_csv(eval_filename, index=False, sep=&quot;\t&quot;, header=None)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    break_data(target=&#x27;data&#x27;, rate=0.2)</span><br></pre></td></tr></table></figure>
+<h4 id="3-通道转化"><a href="#3-通道转化" class="headerlink" title="3.通道转化"></a>3.通道转化</h4><p>由于图片中存在一些非RGB格式的图片，会影响训练，因此进行处理。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#导入需要的包</span><br><span class="line">import os</span><br><span class="line">import random</span><br><span class="line">import json</span><br><span class="line">import cv2</span><br><span class="line">import numpy as np</span><br><span class="line">from PIL import Image</span><br><span class="line">import paddle</span><br><span class="line">import matplotlib.pyplot as plt</span><br><span class="line">## 转换4通道为3通道</span><br><span class="line">def proc_img(src):</span><br><span class="line">    for root, dirs, files in os.walk(src):</span><br><span class="line">        if &#x27;__MACOSX&#x27; in root:continue</span><br><span class="line">        for file in files:            </span><br><span class="line">            src=os.path.join(root,file)</span><br><span class="line">            img=Image.open(src)</span><br><span class="line">            ## 转换4通道为3通道</span><br><span class="line">            if img.mode != &#x27;RGB&#x27;: </span><br><span class="line">                    img = img.convert(&#x27;RGB&#x27;) </span><br><span class="line">                    img.save(src)    </span><br><span class="line">                    print(src)        </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__==&#x27;__main__&#x27;:</span><br><span class="line">    proc_img(&quot;data/data_sets/cat_12/cat_12_train&quot;)</span><br><span class="line">    proc_img(&quot;data/data_sets/cat_12/cat_12_test&quot;)</span><br></pre></td></tr></table></figure>
+<h2 id="训练"><a href="#训练" class="headerlink" title="训练"></a>训练</h2><h4 id="1-修改bug"><a href="#1-修改bug" class="headerlink" title="1.修改bug"></a>1.修改bug</h4><p>由于PaddleClas2.3版本读数据存在bug，因此修改如下文件<br>目录：\ppcls\data\dataloader\imagenet_dataset.py<br>注释:</p>
+<ul>
+<li><code>assert os.path.exists(self._cls_path)</code></li>
+<li><code>assert os.path.exists(self._img_path)</code><br>添加：</li>
+<li><code>self._cls_path=os.path.join(self._img_root,self._cls_path)</code><br>同时修改with open（）as fd:中的内容如下：<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class ImageNetDataset(CommonDataset):</span><br><span class="line">    def _load_anno(self, seed=None):</span><br><span class="line">        # 会对目录进行检测，如果cls_path使用相对目录，就会报错，在此注释掉，并修改为self._cls_path=os.path.join(self._img_root,self._cls_path)</span><br><span class="line"></span><br><span class="line">        self.images = []</span><br><span class="line">        self.labels = []</span><br><span class="line"></span><br><span class="line">        with open(self._cls_path) as fd:</span><br><span class="line">            lines = fd.readlines()</span><br><span class="line">            if seed is not None:</span><br><span class="line">                np.random.RandomState(seed).shuffle(lines)</span><br><span class="line">            for l in lines:</span><br><span class="line">            	  # tab分割</span><br><span class="line">                # l = l.strip().split(&quot; &quot;)</span><br><span class="line">                l = l.strip().split(&quot;\t&quot;)</span><br><span class="line">                self.images.append(os.path.join(self._img_root, l[0]))</span><br><span class="line">                self.labels.append(int(l[1]))</span><br><span class="line">                # 不需要判断这个</span><br><span class="line">                # assert os.path.exists(self.images[-1])</span><br></pre></td></tr></table></figure>
+<h4 id="2-修改配置文件"><a href="#2-修改配置文件" class="headerlink" title="2.修改配置文件"></a>2.修改配置文件</h4>选择PaddleClas&#x2F;ppcls&#x2F;configs&#x2F;ImageNet&#x2F; 中的模型，这里以ResNet为例，选择其中的<code>ResNet50_vd.yaml</code>配置文件，主要修改参数如下：</li>
+<li>class_num: 12<br>Train和Eval下均需修改</li>
+<li>image_root: &#x2F;home&#x2F;aistudio&#x2F;data&#x2F;data_sets&#x2F;cat_12&#x2F;</li>
+<li>cls_label_path: &#x2F;home&#x2F;aistudio&#x2F;data&#x2F;eval.txt</li>
+</ul>
+<h4 id="3-配置说明"><a href="#3-配置说明" class="headerlink" title="3.配置说明"></a>3.配置说明</h4><h6 id="3-1-全局配置-Global"><a href="#3-1-全局配置-Global" class="headerlink" title="3.1 全局配置(Global)"></a>3.1 全局配置(Global)</h6><table>
+<thead>
+<tr>
+<th align="center">参数名字</th>
+<th align="center">具体含义</th>
+<th align="center">默认值</th>
+<th align="center">可选值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">checkpoints</td>
+<td align="center">断点模型路径，用于恢复训练</td>
+<td align="center">null</td>
+<td align="center">str</td>
+</tr>
+<tr>
+<td align="center">pretrained_model</td>
+<td align="center">预训练模型路径</td>
+<td align="center">null</td>
+<td align="center">str</td>
+</tr>
+<tr>
+<td align="center">output_dir</td>
+<td align="center">保存模型路径</td>
+<td align="center">“.&#x2F;output&#x2F;“</td>
+<td align="center">str</td>
+</tr>
+<tr>
+<td align="center">save_interval</td>
+<td align="center">每隔多少个epoch保存模型</td>
+<td align="center">1</td>
+<td align="center">int</td>
+</tr>
+<tr>
+<td align="center">eval_during_train</td>
+<td align="center">是否在训练时进行评估</td>
+<td align="center">True</td>
+<td align="center">bool</td>
+</tr>
+<tr>
+<td align="center">eval_interval</td>
+<td align="center">每隔多少个epoch进行模型评估</td>
+<td align="center">1</td>
+<td align="center">int</td>
+</tr>
+<tr>
+<td align="center">epochs</td>
+<td align="center">训练总epoch数</td>
+<td align="center"></td>
+<td align="center">int</td>
+</tr>
+<tr>
+<td align="center">print_batch_step</td>
+<td align="center">每隔多少个mini-batch打印输出</td>
+<td align="center">10</td>
+<td align="center">int</td>
+</tr>
+<tr>
+<td align="center">use_visualdl</td>
+<td align="center">是否是用visualdl可视化训练过程</td>
+<td align="center">False</td>
+<td align="center">bool</td>
+</tr>
+<tr>
+<td align="center">image_shape</td>
+<td align="center">图片大小</td>
+<td align="center">[3，224，224]</td>
+<td align="center">list, shape: (3,)</td>
+</tr>
+<tr>
+<td align="center">save_inference_dir</td>
+<td align="center">inference模型的保存路径</td>
+<td align="center">“.&#x2F;inference”</td>
+<td align="center">str</td>
+</tr>
+<tr>
+<td align="center">eval_mode</td>
+<td align="center">eval的模式</td>
+<td align="center">“classification”</td>
+<td align="center">“retrieval”</td>
+</tr>
+</tbody></table>
+<h6 id="3-2-结构-Arch"><a href="#3-2-结构-Arch" class="headerlink" title="3.2 结构(Arch)"></a>3.2 结构(Arch)</h6><table>
+<thead>
+<tr>
+<th align="center">参数名字</th>
+<th align="center">具体含义</th>
+<th align="center">默认值</th>
+<th align="center">可选值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">name</td>
+<td align="center">模型结构名字</td>
+<td align="center">ResNet50</td>
+<td align="center">PaddleClas提供的模型结构</td>
+</tr>
+<tr>
+<td align="center">class_num</td>
+<td align="center">分类数</td>
+<td align="center">1000</td>
+<td align="center">int</td>
+</tr>
+<tr>
+<td align="center">pretrained</td>
+<td align="center">预训练模型</td>
+<td align="center">False</td>
+<td align="center">bool， str</td>
+</tr>
+</tbody></table>
+<h6 id="3-3-损失函数（Loss）"><a href="#3-3-损失函数（Loss）" class="headerlink" title="3.3 损失函数（Loss）"></a>3.3 损失函数（Loss）</h6><table>
+<thead>
+<tr>
+<th align="center">参数名字</th>
+<th align="center">具体含义</th>
+<th align="center">默认值</th>
+<th align="center">可选值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">CELoss</td>
+<td align="center">交叉熵损失函数</td>
+<td align="center">——</td>
+<td align="center">——</td>
+</tr>
+<tr>
+<td align="center">CELoss.weight</td>
+<td align="center">CELoss的在整个Loss中的权重</td>
+<td align="center">1.0</td>
+<td align="center">float</td>
+</tr>
+<tr>
+<td align="center">CELoss.epsilon</td>
+<td align="center">CELoss中label_smooth的epsilon值</td>
+<td align="center">0.1</td>
+<td align="center">float，0-1之间</td>
+</tr>
+</tbody></table>
+<h6 id="3-4-优化器-Optimizer"><a href="#3-4-优化器-Optimizer" class="headerlink" title="3.4 优化器(Optimizer)"></a>3.4 优化器(Optimizer)</h6><table>
+<thead>
+<tr>
+<th align="center">参数名字</th>
+<th align="center">具体含义</th>
+<th align="center">默认值</th>
+<th align="center">可选值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">name</td>
+<td align="center">优化器方法名</td>
+<td align="center">“Momentum”</td>
+<td align="center">“RmsProp”等其他优化器</td>
+</tr>
+<tr>
+<td align="center">momentum</td>
+<td align="center">momentum值</td>
+<td align="center">0.9</td>
+<td align="center">float</td>
+</tr>
+<tr>
+<td align="center">lr.name</td>
+<td align="center">学习率下降方式</td>
+<td align="center">“Cosine”</td>
+<td align="center">“Linear”、”Piecewise”等其他下降方式</td>
+</tr>
+<tr>
+<td align="center">lr.learning_rate</td>
+<td align="center">学习率初始值</td>
+<td align="center">0.1</td>
+<td align="center">float</td>
+</tr>
+<tr>
+<td align="center">lr.warmup_epoch</td>
+<td align="center">warmup轮数</td>
+<td align="center">0</td>
+<td align="center">int，如5</td>
+</tr>
+<tr>
+<td align="center">regularizer.name</td>
+<td align="center">正则化方法名</td>
+<td align="center">“L2”</td>
+<td align="center">[“L1”, “L2”]</td>
+</tr>
+<tr>
+<td align="center">regularizer.coeff</td>
+<td align="center">正则化系数</td>
+<td align="center">0.00007</td>
+<td align="center">float</td>
+</tr>
+</tbody></table>
+<h4 id="4-开始训练"><a href="#4-开始训练" class="headerlink" title="4.开始训练"></a>4.开始训练</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 使用以下命令进入项目目录</span><br><span class="line">%cd PaddleClas/</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># GPU设置</span><br><span class="line">!export CUDA_VISIBLE_DEVICES=0</span><br><span class="line"></span><br><span class="line"># -o Arch.pretrained=True 使用预训练模型，当选择为True时，预训练权重会自动下载到本地</span><br><span class="line">!python tools/train.py -c /home/aistudio/PaddleClas/ppcls/configs/ImageNet/ResNet/ResNet50_vd.yaml -o Arch.pretrained=True</span><br></pre></td></tr></table></figure>
+
+<p>使用多卡训练</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">!export CUDA_VISIBLE_DEVICES=0,1,2,3</span><br><span class="line">!python3 -m paddle.distributed.launch \</span><br><span class="line">    --gpus=&quot;0,1,2,3&quot; \</span><br><span class="line">    tools/train.py \</span><br><span class="line">        -c /home/aistudio/ResNet50_vd.yaml -o Arch.pretrained=True</span><br></pre></td></tr></table></figure>
+
+<h2 id="预测"><a href="#预测" class="headerlink" title="预测"></a>预测</h2><p>输入以下命令进行单张图片预测：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 预测</span><br><span class="line">!python3 tools/infer.py -c /home/aistudio/ResNet50_vd.yaml -o Infer.infer_imgs=/home/aistudio/data/data_sets/cat_12/cat_12_test/ou9Ik17GtHSThRCDLZm3f6vB8ybQ4xsl.jpg  -o Global.pretrained_model=output/ResNet50_vd/best_model</span><br></pre></td></tr></table></figure>
+<p>输入以下命令进行批量图片预测，并重定向到output.txt文件中。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 预测</span><br><span class="line">!python3 tools/infer.py -c /home/aistudio/ResNet50_vd.yaml -o Infer.infer_imgs=/home/aistudio/data/data_sets/cat_12/cat_12_test/  -o Global.pretrained_model=output/ResNet50_vd/best_model &gt; output.txt</span><br></pre></td></tr></table></figure>
+<p>输入以下命令生成提交的csv文件格式</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import ast</span><br><span class="line">import re</span><br><span class="line"></span><br><span class="line">with open(&quot;output.txt&quot;) as f:</span><br><span class="line">    ftxt = f.read()</span><br><span class="line">    </span><br><span class="line">pattern = r&quot;&#123;&#x27;class_ids&#x27;:.*?&#125;&quot;</span><br><span class="line">pre_results = re.findall(pattern, ftxt)</span><br><span class="line">print(len(pre_results))</span><br><span class="line"></span><br><span class="line">pre_data = []</span><br><span class="line">for pre_result in pre_results:</span><br><span class="line">    pre_dict = ast.literal_eval(pre_result)  # [&quot;class_ids&quot;, &quot;scores&quot;, &quot;file_name&quot;, &quot;label_names&quot;]</span><br><span class="line">    pre_data.append([pre_dict[&quot;file_name&quot;].split(&quot;/&quot;)[-1],\</span><br><span class="line">                            pre_dict[&quot;class_ids&quot;][0], pre_dict[&quot;scores&quot;][0]])</span><br><span class="line"></span><br><span class="line">columns = [&quot;img_path&quot;, &quot;label&quot;, &quot;scores&quot;]</span><br><span class="line">pre_df = pd.DataFrame(data=pre_data,</span><br><span class="line">                       index=range(len(pre_data)), </span><br><span class="line">                       columns=columns)</span><br><span class="line"></span><br><span class="line">pre_df.drop(columns=[&#x27;scores&#x27;],inplace=True)  # 删除 scores 列</span><br><span class="line">pre_df.sort_values([&quot;img_path&quot;], inplace=True)  # 排序</span><br><span class="line">pre_df.to_csv(&#x27;submission.csv&#x27;,index=None,header=None)</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+]]></content>
+      <tags>
+        <tag>Paddle</tag>
       </tags>
   </entry>
 </search>
