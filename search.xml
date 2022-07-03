@@ -403,7 +403,7 @@
   </entry>
   <entry>
     <title>类型转换</title>
-    <url>/2022/06/20/%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/</url>
+    <url>/2022/07/03/%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/</url>
     <content><![CDATA[<h4 id="string"><a href="#string" class="headerlink" title="string"></a>string</h4><ul>
 <li><p><strong>char</strong></p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">string a;</span><br><span class="line"><span class="type">char</span> n[<span class="number">10</span>]=a.<span class="built_in">c_str</span>();</span><br></pre></td></tr></table></figure>
