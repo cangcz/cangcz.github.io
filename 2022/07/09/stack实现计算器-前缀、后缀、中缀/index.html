@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="徐仓仓">
+    
+    <title>
+        
+            stack实现简单计算器 |
+        
+        仓仓后花园
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/%E5%A4%B4%E5%83%8F.jpg">
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.xml"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":false,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/头像.jpg","favicon":"/images/头像.jpg","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"background_img":"/images/pexels-photo-1323550.jpg","description":"Keep writing and Keep loving."},"scroll":{"progress_bar":{"enable":false},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                仓仓后花园
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                HOME
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                ARCHIVES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                CATEGORIES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                TAGS
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/links"
+                            >
+                                LINKS
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                ABOUT
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">HOME</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">ARCHIVES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">CATEGORIES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">TAGS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/links">LINKS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">ABOUT</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">stack实现简单计算器</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/%E5%A4%B4%E5%83%8F.jpg">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">徐仓仓</span>
+                        
+                            <span class="author-label">Lv2</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2022-07-09 13:54:44</span>
+        <span class="mobile">2022-07-09 13:54</span>
+    </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E7%AE%97%E6%B3%95/">算法</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h1 id="stack实现简单计算器"><a href="#stack实现简单计算器" class="headerlink" title="stack实现简单计算器"></a>stack实现简单计算器</h1><h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><ol>
+<li><p>通过一个 index 值（索引），遍历表达式</p>
+</li>
+<li><p>如果发现是一个<strong>数字</strong>, 就<strong>直接入数栈</strong>。</p>
+</li>
+<li><p>如果发现扫描到是一个<strong>符号</strong>,  就分如下情况：</p>
+<ol>
+<li><p>如果当前的<strong>符号栈为空</strong>，就直接入栈。</p>
+</li>
+<li><p>如果符号栈有操作符，就进行比较,如果当前的操作符的优先级<strong>小于或者等于栈中的操作符</strong>， 就需要从数栈中pop出两个数,在从符号栈中pop出一个符号，进行运算，将得到结果，入数栈。</p>
+<p>再<strong>与新的符号栈顶进行比较</strong>，直到不再小于或等于栈顶操作符，将当前的操作符入符号栈。</p>
+</li>
+<li><p>如果当前的操作符的优先级<strong>大于栈中的操作符</strong>， 就直接入符号栈。</p>
+</li>
+</ol>
+</li>
+<li><p>当表达式扫描完毕，就顺序的从数栈和符号栈中pop出相应的数和符号，并运行。</p>
+</li>
+<li><p>最后在数栈只有一个数字，就是表达式的结果。</p>
+</li>
+</ol>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><p><a class="link"   target="_blank" rel="noopener" href="http://codeup.hustoj.com/contest.php?cid=100000602" >Codeup简易计算器<i class="fas fa-external-link-alt"></i></a> </p>
+<p>代码写了很久，因为网上的教程在3.2步时：比较新操作符与栈顶的优先级，若小于或等于栈顶，则pop出两个数，pop出一个符号进行计算，随后将新符压入符号栈，并没有继续比较新的栈顶。对于公式1-2*3+4*5；当所有字符都被压入栈后，符号栈为-、*，数字栈为1、6、20，最后计算时：6*20&#x3D;120，1-120&#x3D;-119。</p>
+<p>另外，弹出数字后，应注意是a-b，还是b-a。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//stack codeup 问题 A: 简单计算器</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="type">double</span> <span class="title">cal</span><span class="params">(<span class="type">double</span> a, <span class="type">double</span> b, <span class="type">char</span> t)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (t == <span class="string">&#x27;+&#x27;</span>) &#123;</span><br><span class="line">		<span class="comment">//cout &lt;&lt; b + a &lt;&lt; endl;</span></span><br><span class="line">		<span class="keyword">return</span> b + a;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (t == <span class="string">&#x27;-&#x27;</span>) &#123;</span><br><span class="line">		<span class="comment">//cout &lt;&lt; b - a &lt;&lt; endl;</span></span><br><span class="line">		<span class="keyword">return</span> b - a;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (t == <span class="string">&#x27;/&#x27;</span>) &#123;</span><br><span class="line">		<span class="comment">//cout &lt;&lt; b / a &lt;&lt; endl;</span></span><br><span class="line">		<span class="keyword">return</span> b / a;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="comment">//cout &lt;&lt; b * a &lt;&lt; endl;</span></span><br><span class="line">		<span class="keyword">return</span> b * a;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="comment">//char s[200];</span></span><br><span class="line">	string s;</span><br><span class="line">	map&lt;<span class="type">char</span>, <span class="type">double</span>&gt; op;</span><br><span class="line">	op[<span class="string">&#x27;+&#x27;</span>] = <span class="number">0</span>;</span><br><span class="line">	op[<span class="string">&#x27;-&#x27;</span>] = <span class="number">0</span>;</span><br><span class="line">	op[<span class="string">&#x27;*&#x27;</span>] = <span class="number">1</span>;<span class="comment">//优先级更高</span></span><br><span class="line">	op[<span class="string">&#x27;/&#x27;</span>] = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">while</span> (<span class="built_in">getline</span>(cin, s)) &#123;</span><br><span class="line">		<span class="comment">//cout &lt;&lt; &quot;size&quot; &lt;&lt; s.size() &lt;&lt; endl;</span></span><br><span class="line">		stack &lt;<span class="type">char</span>&gt;oper;</span><br><span class="line">		stack &lt;<span class="type">double</span>&gt;num;</span><br><span class="line">		<span class="keyword">if</span> (s[<span class="number">0</span>] == <span class="string">&#x27;0&#x27;</span> &amp;&amp; s.<span class="built_in">size</span>() == <span class="number">1</span>)</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		<span class="comment">//cout &lt;&lt; s;</span></span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; s.<span class="built_in">size</span>();) &#123;</span><br><span class="line">			<span class="keyword">if</span> (s[i] == <span class="string">&#x27; &#x27;</span>) &#123;</span><br><span class="line">				i++;</span><br><span class="line">				<span class="keyword">continue</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span> (!(s[i] &gt;= <span class="string">&#x27;0&#x27;</span> &amp;&amp; s[i] &lt;= <span class="string">&#x27;9&#x27;</span>)) &#123;<span class="comment">//符号</span></span><br><span class="line">				<span class="keyword">if</span> (oper.<span class="built_in">empty</span>() == <span class="literal">true</span>) &#123;<span class="comment">//如果符号栈空，则直接入栈</span></span><br><span class="line">					<span class="type">char</span> n = s[i];</span><br><span class="line">					oper.<span class="built_in">push</span>(n);</span><br><span class="line">					<span class="comment">//cout &lt;&lt; &quot;符号入栈&quot; &lt;&lt; oper.top() &lt;&lt; endl;</span></span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">else</span> &#123;<span class="comment">//符号栈非空，与top进行优先级比较</span></span><br><span class="line">					<span class="keyword">if</span> (op[s[i]] &lt;= op[oper.<span class="built_in">top</span>()]) &#123;<span class="comment">//出两个数字和一个操作符进行计算</span></span><br><span class="line">						<span class="keyword">while</span> (oper.<span class="built_in">size</span>() &gt;= <span class="number">1</span> &amp;&amp; op[s[i]] &lt;= op[oper.<span class="built_in">top</span>()]) &#123;<span class="comment">//继续比较</span></span><br><span class="line">							<span class="type">double</span> a = num.<span class="built_in">top</span>();<span class="comment">//数字出栈</span></span><br><span class="line">							num.<span class="built_in">pop</span>();</span><br><span class="line">							<span class="comment">//cout &lt;&lt; &quot;数字出栈&quot; &lt;&lt; a &lt;&lt; &quot; &quot;;</span></span><br><span class="line">							<span class="type">double</span> b = num.<span class="built_in">top</span>();</span><br><span class="line">							num.<span class="built_in">pop</span>();</span><br><span class="line">							<span class="comment">//cout &lt;&lt; &quot;数字出栈&quot; &lt;&lt; b &lt;&lt; &quot; &quot;;</span></span><br><span class="line">							<span class="type">char</span> t;<span class="comment">//符号出栈</span></span><br><span class="line">							t = oper.<span class="built_in">top</span>();</span><br><span class="line">							oper.<span class="built_in">pop</span>();</span><br><span class="line">							<span class="comment">//cout &lt;&lt; &quot;符号出栈&quot; &lt;&lt; t &lt;&lt; &quot; &quot;;</span></span><br><span class="line">							<span class="type">double</span> ans = <span class="built_in">cal</span>(a, b, t);</span><br><span class="line">							num.<span class="built_in">push</span>(ans);</span><br><span class="line">						&#125;</span><br><span class="line">						oper.<span class="built_in">push</span>(s[i]);</span><br><span class="line">					&#125;</span><br><span class="line">					<span class="keyword">else</span> &#123;<span class="comment">//新运算符优先级高，直接入栈</span></span><br><span class="line">						oper.<span class="built_in">push</span>(s[i]);</span><br><span class="line">						<span class="comment">//cout &lt;&lt; &quot;符号入栈&quot; &lt;&lt; oper.top();</span></span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">				i++;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span> &#123;<span class="comment">//数字</span></span><br><span class="line">				<span class="type">int</span> temp = s[i] - <span class="string">&#x27;0&#x27;</span>;</span><br><span class="line">				i++;</span><br><span class="line">				<span class="keyword">while</span> (s[i] &gt;= <span class="string">&#x27;0&#x27;</span> &amp;&amp; s[i] &lt;= <span class="string">&#x27;9&#x27;</span>) &#123;</span><br><span class="line">					temp = temp * <span class="number">10</span> + s[i] - <span class="string">&#x27;0&#x27;</span>;</span><br><span class="line">					i++;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="comment">//cout &lt;&lt; &quot;数字入栈&quot; &lt;&lt; temp &lt;&lt; endl;</span></span><br><span class="line">				num.<span class="built_in">push</span>(temp);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//double ans = num.top();</span></span><br><span class="line">		<span class="comment">//cout &lt;&lt; ans &lt;&lt; endl;</span></span><br><span class="line">		<span class="keyword">while</span> (num.<span class="built_in">size</span>() &gt;= <span class="number">2</span>) &#123;</span><br><span class="line">			<span class="type">double</span> a = num.<span class="built_in">top</span>();</span><br><span class="line">			num.<span class="built_in">pop</span>();</span><br><span class="line">			<span class="type">double</span> b = num.<span class="built_in">top</span>();</span><br><span class="line">			num.<span class="built_in">pop</span>();</span><br><span class="line">			<span class="type">char</span> t = oper.<span class="built_in">top</span>();</span><br><span class="line">			oper.<span class="built_in">pop</span>();</span><br><span class="line">			<span class="type">double</span> ans = <span class="built_in">cal</span>(a, b, t);</span><br><span class="line">			num.<span class="built_in">push</span>(ans);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;%.2f\n&quot;</span>, num.<span class="built_in">top</span>(), <span class="string">&quot;\n&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="中缀转后缀"><a href="#中缀转后缀" class="headerlink" title="中缀转后缀"></a>中缀转后缀</h1><p><code> 1+((2+3)* 4)-5</code> 转换为<code>123+4*+5–</code> </p>
+<h3 id="思路-1"><a href="#思路-1" class="headerlink" title="思路"></a>思路</h3><ol>
+<li>遍历中缀表达式。</li>
+<li>当读到<strong>数字</strong>时，立即把它输出，即成为后缀表达式的一部分。</li>
+<li>若读到操作符，判断该符号与栈顶符号的优先级：<ol>
+<li>若该符号优先级<strong>高于栈顶元素</strong>，则将该操作符入栈。</li>
+<li>否则就一次把栈中运算符弹出并加到后缀表达式尾端，直到遇到优先级低于该操作符的栈元素，然后把该操作符压入栈中。</li>
+<li>如果遇到<strong>”(”</strong>，直接压入栈中，如果遇到一个<strong>”)”</strong>，那么就将栈元素弹出并加到后缀表达式尾端，但左右括号并不输出。</li>
+</ol>
+</li>
+<li>最后，如果读到中缀表达式的尾端，将栈元素<strong>依次完全弹出</strong>并加到后缀表达式尾端。</li>
+</ol>
+<h1 id="中缀转前缀"><a href="#中缀转前缀" class="headerlink" title="中缀转前缀"></a>中缀转前缀</h1><p><code>1+((2+3)*4)–5</code>转为<code>\-+1*+2345</code></p>
+<h3 id="思路-2"><a href="#思路-2" class="headerlink" title="思路"></a>思路</h3><ol>
+<li><strong>从右至左</strong>遍历中缀表达式。</li>
+<li>如果是<strong>数字</strong>，直接输出，作为前缀表达式的一个直接转换表达式Temp（最后，前缀表达式由该表达式翻转得到）；</li>
+<li>如果是<strong>运算符</strong>，则比较优先级：<ol>
+<li>若该运算符优先级<strong>大于等于栈顶元素</strong>，则将该运算符<strong>入栈</strong>。</li>
+<li>否则栈内元素出栈并加到Temp表达式尾端，<strong>直到该运算符大于等于栈顶元素</strong>的优先级时，再将该运算符压入栈中。</li>
+<li>遇到<strong>右括号</strong>直接压入栈中，如果遇到一个<strong>左括号</strong>，那么就将栈元素弹出并加到Temp表达式尾端，但左右括号并不输出。</li>
+</ol>
+</li>
+<li>最后，若运算符栈中还有元素，则将元素<strong>一次弹出</strong>并加到Temp表达式尾端，最后一步是将Temp表达式<strong>翻转</strong>。</li>
+</ol>
+<h1 id="前缀转中缀"><a href="#前缀转中缀" class="headerlink" title="前缀转中缀"></a>前缀转中缀</h1><p><code>-+1*+2345</code>转为<code>5-(1+(2+3)*4)</code></p>
+<h3 id="思路-3"><a href="#思路-3" class="headerlink" title="思路"></a>思路</h3><p>只有数字栈</p>
+<ol>
+<li><strong>从右到左</strong>扫描前缀表达式</li>
+<li>如果遇到<strong>数字</strong>，则入栈。</li>
+<li>如果遇到<strong>操作符</strong>，则将栈顶个元素弹出，并和操作符结合写成表达式，作为中缀表达式。</li>
+<li>如果遇到的操作符优先级大于已存在表达式的最后执行操作符的优先级，则将已存在的表达式加上（）。</li>
+</ol>
+<hr>
+<p>参考 <a class="link"   target="_blank" rel="noopener" href="https://blog.csdn.net/walkerkalr/article/details/22798365" > 前缀、中缀、后缀表达式转换详解<i class="fas fa-external-link-alt"></i></a> </p>
+
+        </div>
+
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E7%AE%97%E6%B3%95/">#算法</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+            <div class="article-nav">
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2022/07/03/%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">类型转换</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;Comments</i>
+    </div>
+    
+
+        
+            
+    <div class="valine-container">
+        <script 
+                src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+        <div id="vcomments"></div>
+        <script >
+            function loadValine() {
+                new Valine({
+                    el: '#vcomments',
+                    appId: 'V8Fe58tgzqIKMVELkR5Yv92E-gzGzoHsz',
+                    appKey: 'W4N9qs5eCDddB2CNIpeL1jYd',
+                    meta: ['nick', 'mail', 'link'],
+                    avatar: 'wavatar',
+                    enableQQ: true,
+                    placeholder: '\(@^0^@)/',
+                    lang: 'en'.toLowerCase()
+                });
+
+                function getAuthor(language) {
+                    switch (language) {
+                        case 'en':
+                            return 'Author';
+                        case 'zh-CN':
+                            return '博主';
+                        default:
+                            return 'Master';
+                    }
+                }
+
+                // Add "Author" identify
+                const getValineDomTimer = setInterval(() => {
+                    const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
+                    if (vcards.length > 0) {
+                        let author = '徐仓仓';
+
+                        if (author) {
+                            for (let vcard of vcards) {
+                                const vnick_dom = vcard.querySelector('.vhead .vnick');
+                                const vnick = vnick_dom.innerHTML;
+                                if (vnick === author) {
+                                    vnick_dom.innerHTML = `${vnick} <span class="author">${getAuthor(KEEP.hexo_config.language)}</span>`
+                                }
+                            }
+                        }
+                        clearInterval(getValineDomTimer);
+                    } else {
+                        clearInterval(getValineDomTimer);
+                    }
+                }, 2000);
+            }
+
+            if ('false') {
+                const loadValineTimeout = setTimeout(() => {
+                    loadValine();
+                    clearTimeout(loadValineTimeout);
+                }, 1000);
+            } else {
+                window.addEventListener('DOMContentLoaded', loadValine);
+            }
+        </script>
+    </div>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2022&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">徐仓仓</a>
+        </div>
+        
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalview&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fas fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#stack%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E8%AE%A1%E7%AE%97%E5%99%A8"><span class="nav-number">1.</span> <span class="nav-text">stack实现简单计算器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF"><span class="nav-number">1.0.1.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81"><span class="nav-number">1.0.2.</span> <span class="nav-text">代码</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%AD%E7%BC%80%E8%BD%AC%E5%90%8E%E7%BC%80"><span class="nav-number">2.</span> <span class="nav-text">中缀转后缀</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF-1"><span class="nav-number">2.0.1.</span> <span class="nav-text">思路</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%AD%E7%BC%80%E8%BD%AC%E5%89%8D%E7%BC%80"><span class="nav-number">3.</span> <span class="nav-text">中缀转前缀</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF-2"><span class="nav-number">3.0.1.</span> <span class="nav-text">思路</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E7%BC%80%E8%BD%AC%E4%B8%AD%E7%BC%80"><span class="nav-number">4.</span> <span class="nav-text">前缀转中缀</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF-3"><span class="nav-number">4.0.1.</span> <span class="nav-text">思路</span></a></li></ol></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+
+<div class="post-scripts">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+
+</body>
+</html>
