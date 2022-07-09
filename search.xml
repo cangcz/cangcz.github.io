@@ -405,12 +405,31 @@
     <title>类型转换</title>
     <url>/2022/07/03/%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/</url>
     <content><![CDATA[<h4 id="string"><a href="#string" class="headerlink" title="string"></a>string</h4><ul>
-<li><p><strong>char</strong></p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">string a;</span><br><span class="line"><span class="type">char</span> n[<span class="number">10</span>]=a.<span class="built_in">c_str</span>();</span><br></pre></td></tr></table></figure>
+<li><h5 id="char"><a href="#char" class="headerlink" title="char"></a>char</h5><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">string a;</span><br><span class="line"><span class="type">char</span> n[<span class="number">10</span>]=a.<span class="built_in">c_str</span>();</span><br></pre></td></tr></table></figure>
 </li>
-<li><p><strong>int</strong></p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">string a;</span><br><span class="line"><span class="type">int</span> n=<span class="built_in">atoi</span>(a.<span class="built_in">c_str</span>());</span><br></pre></td></tr></table></figure></li>
+<li><h5 id="int"><a href="#int" class="headerlink" title="int"></a>int</h5><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">string a;</span><br><span class="line"><span class="type">int</span> n=<span class="built_in">atoi</span>(a.<span class="built_in">c_str</span>());</span><br></pre></td></tr></table></figure>
+</li>
+<li><h5 id="double"><a href="#double" class="headerlink" title="double"></a>double</h5><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">string a;</span><br><span class="line"><span class="type">double</span> n=<span class="built_in">atof</span>(a.<span class="built_in">c_str</span>());</span><br></pre></td></tr></table></figure></li>
 </ul>
+]]></content>
+      <tags>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>数据结构</title>
+    <url>/2022/07/09/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</url>
+    <content><![CDATA[<h1 id="stack实现简单计算器"><a href="#stack实现简单计算器" class="headerlink" title="stack实现简单计算器"></a>stack实现简单计算器</h1><ol>
+<li>通过一个 index 值（索引），遍历表达式、</li>
+<li>如果发现是一个<strong>数字</strong>, 就<strong>直接入数栈</strong>。</li>
+<li>如果发现扫描到是一个<strong>符号</strong>,  就分如下情况：<ol>
+<li>如果当前的<strong>符号栈为空</strong>，就直接入栈。</li>
+<li>如果符号栈有操作符，就进行比较,如果当前的操作符的优先级<strong>小于或者等于栈中的操作符</strong>， 就需要从数栈中pop出两个数,在从符号栈中pop出一个符号，进行运算，将得到结果，入数栈，然后将当前的操作符入符号栈， 如果当前的操作符的优先级<strong>大于栈中的操作符</strong>， 就直接入符号栈。</li>
+</ol>
+</li>
+<li>当表达式扫描完毕，就顺序的从数栈和符号栈中pop出相应的数和符号，并运行。</li>
+<li>最后在数栈只有一个数字，就是表达式的结果。</li>
+</ol>
 ]]></content>
       <tags>
         <tag>算法</tag>
