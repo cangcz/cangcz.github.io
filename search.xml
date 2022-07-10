@@ -356,7 +356,12 @@
     <title>需要注意的点</title>
     <url>/2022/06/06/%E9%9C%80%E6%B3%A8%E6%84%8F%E7%9A%84%E7%82%B9/</url>
     <content><![CDATA[<p>刷题时经常不会直接AC，部分错误又很令人头疼，以下是部分踩过的坑，希望可以铭记于心。</p>
-<h3 id="1、科学计数法"><a href="#1、科学计数法" class="headerlink" title="1、科学计数法"></a>1、科学计数法</h3><p>用cout输出大数会产生科学计数法</p>
+<h3 id="1、输出格式"><a href="#1、输出格式" class="headerlink" title="1、输出格式"></a>1、输出格式</h3><h4 id="补位"><a href="#补位" class="headerlink" title="补位"></a>补位</h4><p>需要注意题目的输出格式,可能不会直说，若是00001时，注意要在高位补0</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%05d&quot;</span>,a);<span class="comment">//以0补充</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%5d&quot;</span>,a);<span class="comment">//以5位右对齐输出</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%.5f&quot;</span>,b);<span class="comment">//保留五位小数</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="科学计数法"><a href="#科学计数法" class="headerlink" title="科学计数法"></a>科学计数法</h4><p>用cout输出大数会产生科学计数法</p>
 <p> iomanip——定义IO流输出输入格式的头文件</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">cout &lt;&lt; fixed &lt;&lt; <span class="built_in">setprecision</span>(<span class="number">0</span>) &lt;&lt; 数据 &lt;&lt; endl;</span><br><span class="line"><span class="comment">//不以科学计数法输出—固定格式+0精度</span></span><br></pre></td></tr></table></figure>
 
@@ -396,6 +401,9 @@
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//将字母和数字利用ASCII表映射到数字</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">hash</span><span class="params">(<span class="type">char</span> name[<span class="number">5</span>])</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> num=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">3</span>;i++)&#123;</span><br><span class="line">        num=num*<span class="number">26</span>+name[i]-<span class="string">&#x27;A&#x27;</span>;<span class="comment">//注意*26和减&#x27;A&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">    num=num*<span class="number">10</span>+name[<span class="number">3</span>]-<span class="string">&#x27;0&#x27;</span>;<span class="comment">//注意*10和减&#x27;0&#x27;</span></span><br><span class="line">    <span class="keyword">return</span> num;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>转变后姓名对应着索引，可知索引最大是26*26*26*10，创建数组或vector时需注意大小。</p>
+<h3 id="5、静态链表"><a href="#5、静态链表" class="headerlink" title="5、静态链表"></a>5、静态链表</h3><p>当结点的地址是比较小的整数（如5位数的地址）时，可采用静态链表，相比动态链表更加方便。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">Node</span> &#123;</span><br><span class="line">	<span class="type">char</span> data;</span><br><span class="line">	<span class="type">int</span> next;</span><br><span class="line">&#125;node[size];</span><br><span class="line"><span class="comment">//……</span></span><br><span class="line">node[<span class="number">00011</span>].data = data;</span><br><span class="line">node[<span class="number">00011</span>].next = next;</span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <tags>
         <tag>算法</tag>
