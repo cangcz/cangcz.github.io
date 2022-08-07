@@ -391,7 +391,7 @@
 
 <h3 id="4、map和哈希表"><a href="#4、map和哈希表" class="headerlink" title="4、map和哈希表"></a>4、map和哈希表</h3><p>​	将学生名字abc9(由三个字母和一个数字组成）对应到表中，利用<code>map&lt;string,int&gt;</code>可能导致存储过大，提示段错误，因此可考虑hash表的形式。</p>
 <ul>
-<li><h4 id="map"><a href="#map" class="headerlink" title="map"></a>map</h4></li>
+<li><h4 id="map"><a href="#map" class="headerlink" title="map"></a>map</h4>map中元素自动按键从小到大排序</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">map&lt;string,<span class="type">int</span>&gt;clas;</span><br><span class="line">clas[<span class="string">&quot;abc9&quot;</span>]=<span class="number">1</span>;</span><br></pre></td></tr></table></figure>
 
@@ -490,6 +490,16 @@
 </ol>
 <hr>
 <p>参考 <a class="link"   href="https://blog.csdn.net/walkerkalr/article/details/22798365" > 前缀、中缀、后缀表达式转换详解<i class="fas fa-external-link-alt"></i></a> </p>
+]]></content>
+      <tags>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>字符串</title>
+    <url>/2022/08/07/String/</url>
+    <content><![CDATA[<h5 id="比大小"><a href="#比大小" class="headerlink" title="比大小"></a>比大小</h5><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//可以直接进行比较</span></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">cmp</span><span class="params">(string a,string b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a&gt;b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <tags>
         <tag>算法</tag>
