@@ -7,15 +7,8 @@
 <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
 
 <p>More info: <a class="link"   href="https://hexo.io/docs/writing.html" >Writing<i class="fas fa-external-link-alt"></i></a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a class="link"   href="https://hexo.io/docs/server.html" >Server<i class="fas fa-external-link-alt"></i></a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a class="link"   href="https://hexo.io/docs/generating.html" >Generating<i class="fas fa-external-link-alt"></i></a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a class="link"   href="https://hexo.io/docs/one-command-deployment.html" >Deployment<i class="fas fa-external-link-alt"></i></a></p>
+<h3 id="写完新的博客后"><a href="#写完新的博客后" class="headerlink" title="写完新的博客后"></a>写完新的博客后</h3><p>先g一下，再d一下</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo g</span><br><span class="line">$ hexo d</span><br></pre></td></tr></table></figure>
 ]]></content>
   </entry>
   <entry>
@@ -58,7 +51,7 @@
   <entry>
     <title>复杂度</title>
     <url>/2022/06/20/%E5%A4%8D%E6%9D%82%E5%BA%A6/</url>
-    <content><![CDATA[<h1 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h1><table>
+    <content><![CDATA[<h3 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h3><table>
 <thead>
 <tr>
 <th align="center">算法</th>
@@ -92,7 +85,7 @@
 <td align="center"></td>
 </tr>
 </tbody></table>
-<h1 id="素数"><a href="#素数" class="headerlink" title="素数"></a>素数</h1><table>
+<h3 id="素数"><a href="#素数" class="headerlink" title="素数"></a>素数</h3><table>
 <thead>
 <tr>
 <th align="center">算法</th>
@@ -110,6 +103,22 @@
 <tr>
 <td align="center"></td>
 <td align="center"></td>
+</tr>
+</tbody></table>
+<h3 id="string"><a href="#string" class="headerlink" title="string"></a>string</h3><table>
+<thead>
+<tr>
+<th align="center">算法</th>
+<th align="center">复杂度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">substr()</td>
+<td align="center">O(len)</td>
+</tr>
+<tr>
+<td align="center">find()</td>
+<td align="center">O(nm)</td>
 </tr>
 </tbody></table>
 ]]></content>
@@ -505,6 +514,24 @@
 </li>
 </ul>
 <h4 id="比大小"><a href="#比大小" class="headerlink" title="比大小"></a>比大小</h4><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//可以直接进行比较</span></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">cmp</span><span class="params">(string a,string b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a&gt;b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="输入输出"><a href="#输入输出" class="headerlink" title="输入输出"></a>输入输出</h4><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">string s;</span><br><span class="line">cin&gt;&gt;s;</span><br><span class="line">cout&lt;&lt;S;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%s&quot;</span>,s.<span class="built_in">c_str</span>());<span class="comment">//将string转换为字符数组</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器</h4><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">string::iterator it;</span><br></pre></td></tr></table></figure>
+
+<h4 id="插入insert"><a href="#插入insert" class="headerlink" title="插入insert()"></a>插入insert()</h4><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">insert</span>(pos,string);</span><br><span class="line"><span class="built_in">insert</span>(it,it2,it3);<span class="comment">//串[it2,it3)将被插在it的位置上 it、it2、it3是迭代器，如s.begin()+2</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="删除erase"><a href="#删除erase" class="headerlink" title="删除erase()"></a>删除erase()</h4><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">s.<span class="built_in">erase</span>(it);</span><br><span class="line">s.<span class="built_in">erase</span>(first,last);<span class="comment">//删除[first,last)区间（迭代器表示）</span></span><br><span class="line">s.<span class="built_in">erase</span>(pos,length);<span class="comment">//pos:起始下标，length：长度</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="清空clear"><a href="#清空clear" class="headerlink" title="清空clear()"></a>清空clear()</h4><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">s.<span class="built_in">clear</span>();</span><br></pre></td></tr></table></figure>
+
+<h4 id="截取substr"><a href="#截取substr" class="headerlink" title="截取substr()"></a>截取substr()</h4><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">s.<span class="built_in">substr</span>(pos,len);<span class="comment">//从下标pos开始，长度为len的子串，复杂度为O(len)</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="查找find"><a href="#查找find" class="headerlink" title="查找find()"></a>查找find()</h4><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//复杂度为O(nm)</span></span><br><span class="line">s.<span class="built_in">find</span>(s2);<span class="comment">//返回说第一次出现的位置，否则，返回string::npos(-1)</span></span><br><span class="line">s.<span class="built_in">find</span>(s2,pos);<span class="comment">//从pos开始找</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="替代replace"><a href="#替代replace" class="headerlink" title="替代replace()"></a>替代replace()</h4><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">s.<span class="built_in">replace</span>(pos,len,s2);<span class="comment">//把s从pos开始，长度为len的子串替换为s2</span></span><br><span class="line">s.<span class="built_in">replace</span>(it1,it2,str2);<span class="comment">//迭代器[it1,it2)范围的子串替换为s2</span></span><br></pre></td></tr></table></figure>
+
+
 
 ]]></content>
       <tags>
