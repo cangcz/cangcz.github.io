@@ -498,7 +498,13 @@
   <entry>
     <title>字符串</title>
     <url>/2022/08/07/String/</url>
-    <content><![CDATA[<h5 id="比大小"><a href="#比大小" class="headerlink" title="比大小"></a>比大小</h5><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//可以直接进行比较</span></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">cmp</span><span class="params">(string a,string b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a&gt;b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    <content><![CDATA[<h5 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h5><ul>
+<li><p>1001、1005、1035、1061、1073、1077、1082、1093、1108、1140、1152</p>
+</li>
+<li><p>回文：1019、1024、1136</p>
+</li>
+</ul>
+<h4 id="比大小"><a href="#比大小" class="headerlink" title="比大小"></a>比大小</h4><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//可以直接进行比较</span></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">cmp</span><span class="params">(string a,string b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a&gt;b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 ]]></content>
       <tags>
