@@ -121,6 +121,38 @@
 <td align="center">O(nm)</td>
 </tr>
 </tbody></table>
+<h3 id="图"><a href="#图" class="headerlink" title="图"></a>图</h3><table>
+<thead>
+<tr>
+<th align="center">算法</th>
+<th align="center">复杂度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Dijkstra （邻接矩阵）</td>
+<td align="center">O(V^2) ，V:点</td>
+</tr>
+<tr>
+<td align="center">Dijkstra (邻接表)</td>
+<td align="center">O(V^2+E)</td>
+</tr>
+<tr>
+<td align="center">Bellman-Ford</td>
+<td align="center">O(VE)</td>
+</tr>
+<tr>
+<td align="center">SPFA</td>
+<td align="center">O(kE)</td>
+</tr>
+<tr>
+<td align="center">Floyd</td>
+<td align="center">O(n^3)</td>
+</tr>
+<tr>
+<td align="center">prim</td>
+<td align="center">O(V^2)</td>
+</tr>
+</tbody></table>
 ]]></content>
       <tags>
         <tag>算法</tag>
@@ -398,7 +430,13 @@
 <p>   只能用cin和cout进行输入输出，可利用<code>c_str()</code>转换为char数组。</p>
    <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">string s;</span><br><span class="line">cin&gt;&gt;s;</span><br><span class="line">cout&lt;&lt;s;</span><br><span class="line">printf(&quot;%s&quot;,s.c_str())</span><br></pre></td></tr></table></figure>
 
-<h3 id="4、map和哈希表"><a href="#4、map和哈希表" class="headerlink" title="4、map和哈希表"></a>4、map和哈希表</h3><p>​	将学生名字abc9(由三个字母和一个数字组成）对应到表中，利用<code>map&lt;string,int&gt;</code>可能导致存储过大，提示段错误，因此可考虑hash表的形式。</p>
+<h3 id="4、double精度问题"><a href="#4、double精度问题" class="headerlink" title="4、double精度问题"></a>4、double精度问题</h3><p>double可能会导致误差，如double*int和int*double计算所得答案不同</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//1104 Sum of Number Segments</span></span><br><span class="line"><span class="type">double</span> ans=<span class="number">0</span>,temp;</span><br><span class="line">ans += temp * (i + <span class="number">1</span>) * (N - i);</span><br><span class="line">ans +=  (i + <span class="number">1</span>) * (N - i) * temp;</span><br><span class="line"><span class="comment">//两者计算答案不同</span></span><br></pre></td></tr></table></figure>
+
+<p>可以利用long long 型，对浮点数先乘1000后除1000的方法避免误差（ 假设测试样例的小数在三位以内，四五六位经过多次累加进位后依然可能会引起精度问题）</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">long</span> <span class="type">long</span> ans = <span class="number">0</span>;</span><br><span class="line">ans += (<span class="type">long</span> <span class="type">long</span>)(a * <span class="number">1000</span> * (N - i) * (i + <span class="number">1</span>));</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%.2f\n&quot;</span>, ans / <span class="number">1000.0</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="5、map和哈希表"><a href="#5、map和哈希表" class="headerlink" title="5、map和哈希表"></a>5、map和哈希表</h3><p>​	将学生名字abc9(由三个字母和一个数字组成）对应到表中，利用<code>map&lt;string,int&gt;</code>可能导致存储过大，提示段错误，因此可考虑hash表的形式。</p>
 <ul>
 <li><h4 id="map"><a href="#map" class="headerlink" title="map"></a>map</h4>map中元素自动按键从小到大排序</li>
 </ul>
@@ -413,7 +451,7 @@
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//将字母和数字利用ASCII表映射到数字</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">hash</span><span class="params">(<span class="type">char</span> name[<span class="number">5</span>])</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> num=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">3</span>;i++)&#123;</span><br><span class="line">        num=num*<span class="number">26</span>+name[i]-<span class="string">&#x27;A&#x27;</span>;<span class="comment">//注意*26和减&#x27;A&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">    num=num*<span class="number">10</span>+name[<span class="number">3</span>]-<span class="string">&#x27;0&#x27;</span>;<span class="comment">//注意*10和减&#x27;0&#x27;</span></span><br><span class="line">    <span class="keyword">return</span> num;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>转变后姓名对应着索引，可知索引最大是26*26*26*10，创建数组或vector时需注意大小。</p>
-<h3 id="5、静态链表"><a href="#5、静态链表" class="headerlink" title="5、静态链表"></a>5、静态链表</h3><p>当结点的地址是比较小的整数（如5位数的地址）时，可采用静态链表，相比动态链表更加方便。</p>
+<h3 id="6、静态链表"><a href="#6、静态链表" class="headerlink" title="6、静态链表"></a>6、静态链表</h3><p>当结点的地址是比较小的整数（如5位数的地址）时，可采用静态链表，相比动态链表更加方便。</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">Node</span> &#123;</span><br><span class="line">	<span class="type">char</span> data;</span><br><span class="line">	<span class="type">int</span> next;</span><br><span class="line">&#125;node[size];</span><br><span class="line"><span class="comment">//……</span></span><br><span class="line">node[<span class="number">00011</span>].data = data;</span><br><span class="line">node[<span class="number">00011</span>].next = next;</span><br></pre></td></tr></table></figure>
 
 ]]></content>
@@ -533,6 +571,44 @@
 
 
 
+<p> <strong>1136 A Delayed Palindrome</strong> </p>
+<ol>
+<li><h5 id="char-to-int"><a href="#char-to-int" class="headerlink" title="char to int"></a>char to int</h5><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> num = <span class="string">&#x27;3&#x27;</span> - <span class="string">&#x27;0&#x27;</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><h5 id="int-to-char"><a href="#int-to-char" class="headerlink" title="int to char"></a>int to char</h5><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">char</span> c = <span class="number">1</span> + <span class="string">&#x27;0&#x27;</span>;</span><br><span class="line"><span class="comment">//不可以用char c = char(1)</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+]]></content>
+      <tags>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>树</title>
+    <url>/2022/08/09/%E6%A0%91/</url>
+    <content><![CDATA[<h5 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h5><ul>
+<li><p>一般树（7）<br>DFS&#x2F;BSF：1094、1104</p>
+<p>路径：1053、1079、1090、1006</p>
+<p>公共祖先：1151</p>
+</li>
+<li><p>二叉树（6）<br>前中后序 + DFS&#x2F;BFS：1020、1127、1138、1119、1130、1102</p>
+</li>
+<li><p>完全二叉树（1）<br>1110</p>
+</li>
+<li><p>二叉查找树 BST（4）<br>1043、1064、1099、1115</p>
+</li>
+<li><p>平衡二叉树 AVL（2）<br>1066、1123</p>
+</li>
+<li><p>堆（2）<br>1147、1155</p>
+</li>
+<li><p>并查集（3）<br>1107、1114、1118</p>
+</li>
+<li><p>哈夫曼树</p>
+</li>
+</ul>
+<p> <strong>1094 The Largest Generation</strong> </p>
+<ol>
+<li><h5 id="静态写法构造树"><a href="#静态写法构造树" class="headerlink" title="静态写法构造树"></a>静态写法构造树</h5><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">vector&lt;<span class="type">int</span>&gt; Node[MAXN];</span><br></pre></td></tr></table></figure></li>
+</ol>
 ]]></content>
       <tags>
         <tag>算法</tag>
