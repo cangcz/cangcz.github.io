@@ -229,7 +229,7 @@
 
         <div class="article-content markdown-body">
             <h5 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h5><ul>
-<li><p>一般树（7）<br>DFS&#x2F;BSF：1094、1104</p>
+<li><p>一般树（7）<br>DFS&#x2F;BSF：1094</p>
 <p>路径：1053、1079、1090、1006</p>
 <p>公共祖先：1151</p>
 </li>
@@ -248,10 +248,33 @@
 <li><p>哈夫曼树</p>
 </li>
 </ul>
-<p> <strong>1094 The Largest Generation</strong> </p>
-<ol>
-<li><h5 id="静态写法构造树"><a href="#静态写法构造树" class="headerlink" title="静态写法构造树"></a>静态写法构造树</h5><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;<span class="type">int</span>&gt; Node[MAXN];</span><br></pre></td></tr></table></figure></li>
+<h4 id="静态写法构造树"><a href="#静态写法构造树" class="headerlink" title="静态写法构造树"></a>静态写法构造树</h4><ol>
+<li><p><strong>结点没有数据，可能有多个孩子，利用vector数组记录，将结点的孩子push_back进父节点的数组中。</strong></p>
+<p>1094 The Largest Generation</p>
+ <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;<span class="type">int</span>&gt; Node[MAXN];</span><br><span class="line">Node[<span class="number">1</span>].<span class="built_in">push_back</span>(<span class="number">2</span>);<span class="comment">//2是1的孩子</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>结点有数据，并且树的结点按照下标构成，可以考虑开创一个数组来记录数据</strong></p>
+</li>
 </ol>
+<p>   1079 Total Sales of Supply Chain</p>
+   <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;<span class="type">int</span>&gt; chain[<span class="number">100010</span>];</span><br><span class="line"><span class="type">int</span> project[<span class="number">100010</span>];</span><br><span class="line">project[<span class="number">1</span>]=<span class="number">10</span>;<span class="comment">//1号结点的数据是10</span></span><br><span class="line">chain[<span class="number">1</span>].<span class="built_in">push_back</span>(<span class="number">2</span>);<span class="comment">//2是1的孩子</span></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li><p><strong>结点有数据，可能有多个孩子，构造结构体</strong></p>
+<p>1053 Path of Equal Weight</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">node</span> &#123;</span><br><span class="line">	<span class="type">int</span> data;</span><br><span class="line">	vector&lt;<span class="type">int</span>&gt; child;<span class="comment">//储存孩子在tree中的索引</span></span><br><span class="line">&#125;;</span><br><span class="line">node tree[<span class="number">110</span>];</span><br></pre></td></tr></table></figure>
+
+
+<p>宽度优先</p>
+<p>1004 Counting Leaves</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//BFS</span></span><br><span class="line">queue&lt;node&gt;q;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">BFS</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">while</span> (!q.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">		node top = q.<span class="built_in">front</span>();</span><br><span class="line">		q.<span class="built_in">pop</span>();</span><br><span class="line">		……</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; top.child.<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line">			……</span><br><span class="line">			q.<span class="built_in">push</span>(tree[top.child[i]]);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="构造二叉树"><a href="#构造二叉树" class="headerlink" title="构造二叉树"></a>构造二叉树</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">node</span> &#123;</span><br><span class="line">	<span class="type">int</span> data;</span><br><span class="line">	node* lchild = <span class="literal">NULL</span>;</span><br><span class="line">	node* rchild = <span class="literal">NULL</span>;</span><br><span class="line">&#125;;</span><br><span class="line">node* root = <span class="keyword">new</span> <span class="built_in">node</span>();</span><br><span class="line">root -&gt; data = <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+
+<h4 id="遍历转换"><a href="#遍历转换" class="headerlink" title="遍历转换"></a>遍历转换</h4><p><strong>中序序列可与先序序列、后序序列、层序序列中的任意一个来构造唯一的二叉树</strong></p>
+<h5 id="先序-中序-x3D-gt-后序"><a href="#先序-中序-x3D-gt-后序" class="headerlink" title="先序+中序&#x3D;&gt;后序"></a>先序+中序&#x3D;&gt;后序</h5><p>1086 Tree Traversals Again  </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1、得到先序pre[maxn]和中序in[maxn]数组；</span></span><br><span class="line"><span class="type">int</span> pre[maxn],in[maxn];</span><br><span class="line">……</span><br><span class="line"><span class="comment">//2、构造后序</span></span><br><span class="line"><span class="function">node* <span class="title">create</span><span class="params">(<span class="type">int</span> preL, <span class="type">int</span> preR, <span class="type">int</span> inL, <span class="type">int</span> inR)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//若函数参数表达范围是[preL,preR]、[inL,inR]，递归结束条件为if (preL &gt; preR)</span></span><br><span class="line">	<span class="keyword">if</span> (preL + <span class="number">1</span> &gt; preR) &#123;<span class="comment">//函数参数表达范围是[preL,preR)、[inL,inR)</span></span><br><span class="line">		<span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	node* root = <span class="keyword">new</span> <span class="built_in">node</span>();</span><br><span class="line">    root-&gt;data = pre[preL];</span><br><span class="line">	<span class="type">int</span> i = inL;</span><br><span class="line">	<span class="keyword">for</span> (; i &lt; inR; i++) &#123;</span><br><span class="line">		<span class="keyword">if</span> (pre[preL] == in[i])</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">	&#125;</span><br><span class="line">    root-&gt;lchild = <span class="built_in">create</span>(preL + <span class="number">1</span>, preL + i - inL + <span class="number">1</span>, inL, i);</span><br><span class="line">	root-&gt;rchild = <span class="built_in">create</span>(preL + i - inL + <span class="number">1</span>, preR, i + <span class="number">1</span>, inR);</span><br><span class="line">	<span class="keyword">return</span> root;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 
         </div>
 
@@ -485,7 +508,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%EF%BC%9A"><span class="nav-number">1.</span> <span class="nav-text">题目：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%9D%99%E6%80%81%E5%86%99%E6%B3%95%E6%9E%84%E9%80%A0%E6%A0%91"><span class="nav-number">2.</span> <span class="nav-text">静态写法构造树</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%EF%BC%9A"><span class="nav-number">1.</span> <span class="nav-text">题目：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9D%99%E6%80%81%E5%86%99%E6%B3%95%E6%9E%84%E9%80%A0%E6%A0%91"><span class="nav-number"></span> <span class="nav-text">静态写法构造树</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9E%84%E9%80%A0%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="nav-number"></span> <span class="nav-text">构造二叉树</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%81%8D%E5%8E%86%E8%BD%AC%E6%8D%A2"><span class="nav-number"></span> <span class="nav-text">遍历转换</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%85%88%E5%BA%8F-%E4%B8%AD%E5%BA%8F-x3D-gt-%E5%90%8E%E5%BA%8F"><span class="nav-number">1.</span> <span class="nav-text">先序+中序&#x3D;&gt;后序</span></a></li></ol>
     </div>
 </div>
         </aside>
