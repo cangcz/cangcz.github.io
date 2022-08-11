@@ -400,7 +400,7 @@
     <title>需要注意的点</title>
     <url>/2022/06/06/%E9%9C%80%E6%B3%A8%E6%84%8F%E7%9A%84%E7%82%B9/</url>
     <content><![CDATA[<p>刷题时经常不会直接AC，部分错误又很令人头疼，以下是部分踩过的坑，希望可以铭记于心。</p>
-<h3 id="1、输出格式"><a href="#1、输出格式" class="headerlink" title="1、输出格式"></a>1、输出格式</h3><h4 id="补位"><a href="#补位" class="headerlink" title="补位"></a>补位</h4><p>需要注意题目的输出格式,可能不会直说，若是00001时，注意要在高位补0</p>
+<h3 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h3><h4 id="补位"><a href="#补位" class="headerlink" title="补位"></a>补位</h4><p>需要注意题目的输出格式,可能不会直说，若是00001时，注意要在高位补0</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%05d&quot;</span>,a);<span class="comment">//以0补充</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%5d&quot;</span>,a);<span class="comment">//以5位右对齐输出</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%.5f&quot;</span>,b);<span class="comment">//保留五位小数</span></span><br></pre></td></tr></table></figure>
 
 
@@ -409,13 +409,13 @@
 <p> iomanip——定义IO流输出输入格式的头文件</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">cout &lt;&lt; fixed &lt;&lt; <span class="built_in">setprecision</span>(<span class="number">0</span>) &lt;&lt; 数据 &lt;&lt; endl;</span><br><span class="line"><span class="comment">//不以科学计数法输出—固定格式+0精度</span></span><br></pre></td></tr></table></figure>
 
-<h3 id="2、取余"><a href="#2、取余" class="headerlink" title="2、取余"></a>2、取余</h3><p>要求对结果的大数取模时，若最后再取模，可能在计算过程中越界，如：</p>
+<h3 id="取余"><a href="#取余" class="headerlink" title="取余"></a>取余</h3><p>要求对结果的大数取模时，若最后再取模，可能在计算过程中越界，如：</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">while</span>(i&lt;n)&#123;</span><br><span class="line">	a+=b;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> a%<span class="number">100</span>;</span><br></pre></td></tr></table></figure>
 
 <p>存在公式<br>$$<br>(a\pm b)%p&#x3D;(a%p\pm b%p)%p\<br>(a<em>b)%m&#x3D;(a%m</em>b%m)%m\<br>a^b%m&#x3D;(a%m)^b%m<br>$$<br>因此，可以在循环中取模</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">while</span>(i&lt;n)&#123;</span><br><span class="line">	a=(a+b)%<span class="number">100</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> a;</span><br></pre></td></tr></table></figure>
 
-<h3 id="3、时间超限"><a href="#3、时间超限" class="headerlink" title="3、时间超限"></a>3、时间超限</h3><ul>
+<h3 id="时间超限"><a href="#时间超限" class="headerlink" title="时间超限"></a>时间超限</h3><ul>
 <li><h4 id="输入输出"><a href="#输入输出" class="headerlink" title="输入输出"></a>输入输出</h4></li>
 </ul>
 <p> 利用<strong>cout</strong>和<strong>cin</strong>在数据量大时会直接超时，需使用**printf()<strong>和</strong>scanf()**。</p>
@@ -430,7 +430,7 @@
 <p>   只能用cin和cout进行输入输出，可利用<code>c_str()</code>转换为char数组。</p>
    <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">string s;</span><br><span class="line">cin&gt;&gt;s;</span><br><span class="line">cout&lt;&lt;s;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%s&quot;</span>,s.<span class="built_in">c_str</span>())</span><br></pre></td></tr></table></figure>
 
-<h3 id="4、double精度问题"><a href="#4、double精度问题" class="headerlink" title="4、double精度问题"></a>4、double精度问题</h3><p>double可能会导致误差，如double*int和int*double计算所得答案不同</p>
+<h3 id="double精度问题"><a href="#double精度问题" class="headerlink" title="double精度问题"></a>double精度问题</h3><p>double可能会导致误差，如double*int和int*double计算所得答案不同</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//1104 Sum of Number Segments</span></span><br><span class="line"><span class="type">double</span> ans=<span class="number">0</span>,temp;</span><br><span class="line">ans += temp * (i + <span class="number">1</span>) * (N - i);</span><br><span class="line">ans +=  (i + <span class="number">1</span>) * (N - i) * temp;</span><br><span class="line"><span class="comment">//两者计算答案不同</span></span><br></pre></td></tr></table></figure>
 
 <p>可以利用long long 型，对浮点数先乘1000后除1000的方法避免误差（ 假设测试样例的小数在三位以内，四五六位经过多次累加进位后依然可能会引起精度问题）</p>
@@ -443,7 +443,11 @@
 <p>若递归时，参数设置为int记录层数，最后再计算,成功AC</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">DFS</span><span class="params">(<span class="type">int</span> root,<span class="type">int</span> layer)</span> </span>&#123;</span><br><span class="line">	……</span><br><span class="line">	<span class="built_in">DFS</span>(newroot, layer + <span class="number">1</span>);</span><br><span class="line">	……</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">double</span> price = <span class="built_in">pow</span>((<span class="number">1</span> + r), minlayer)  * P;</span><br></pre></td></tr></table></figure>
 
-<h3 id="5、map和哈希表"><a href="#5、map和哈希表" class="headerlink" title="5、map和哈希表"></a>5、map和哈希表</h3><p>​	将学生名字abc9(由三个字母和一个数字组成）对应到表中，利用<code>map&lt;string,int&gt;</code>可能导致存储过大，提示段错误，因此可考虑hash表的形式。</p>
+<h3 id="cmath"><a href="#cmath" class="headerlink" title="cmath"></a>cmath</h3><p>引入<code>#include&lt;cmath&gt;</code></p>
+<p>以e为底：<code>log(exp(n))</code></p>
+<p>以10为底：<code>log10(n)</code></p>
+<p>以m为底：<code>log(n)/log(m)</code></p>
+<h3 id="map和哈希表"><a href="#map和哈希表" class="headerlink" title="map和哈希表"></a>map和哈希表</h3><p>​	将学生名字abc9(由三个字母和一个数字组成）对应到表中，利用<code>map&lt;string,int&gt;</code>可能导致存储过大，提示段错误，因此可考虑hash表的形式。</p>
 <ul>
 <li><h4 id="map"><a href="#map" class="headerlink" title="map"></a>map</h4>map中元素自动按键从小到大排序</li>
 </ul>
@@ -458,10 +462,10 @@
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//将字母和数字利用ASCII表映射到数字</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">hash</span><span class="params">(<span class="type">char</span> name[<span class="number">5</span>])</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> num=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">3</span>;i++)&#123;</span><br><span class="line">        num=num*<span class="number">26</span>+name[i]-<span class="string">&#x27;A&#x27;</span>;<span class="comment">//注意*26和减&#x27;A&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">    num=num*<span class="number">10</span>+name[<span class="number">3</span>]-<span class="string">&#x27;0&#x27;</span>;<span class="comment">//注意*10和减&#x27;0&#x27;</span></span><br><span class="line">    <span class="keyword">return</span> num;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>转变后姓名对应着索引，可知索引最大是26*26*26*10，创建数组或vector时需注意大小。</p>
-<h3 id="6、静态链表"><a href="#6、静态链表" class="headerlink" title="6、静态链表"></a>6、静态链表</h3><p>当结点的地址是比较小的整数（如5位数的地址）时，可采用静态链表，相比动态链表更加方便。</p>
+<h3 id="静态链表"><a href="#静态链表" class="headerlink" title="静态链表"></a>静态链表</h3><p>当结点的地址是比较小的整数（如5位数的地址）时，可采用静态链表，相比动态链表更加方便。</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">Node</span> &#123;</span><br><span class="line">	<span class="type">char</span> data;</span><br><span class="line">	<span class="type">int</span> next;</span><br><span class="line">&#125;node[size];</span><br><span class="line"><span class="comment">//……</span></span><br><span class="line">node[<span class="number">00011</span>].data = data;</span><br><span class="line">node[<span class="number">00011</span>].next = next;</span><br></pre></td></tr></table></figure>
 
-]]></content>
+<h3 id=""><a href="#" class="headerlink" title=""></a></h3>]]></content>
       <tags>
         <tag>算法</tag>
       </tags>
@@ -475,6 +479,16 @@
 <li><h5 id="int"><a href="#int" class="headerlink" title="int"></a>int</h5><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">string a;</span><br><span class="line"><span class="type">int</span> n=<span class="built_in">atoi</span>(a.<span class="built_in">c_str</span>());</span><br></pre></td></tr></table></figure>
 </li>
 <li><h5 id="double"><a href="#double" class="headerlink" title="double"></a>double</h5><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">string a;</span><br><span class="line"><span class="type">double</span> n=<span class="built_in">atof</span>(a.<span class="built_in">c_str</span>());</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="char-1"><a href="#char-1" class="headerlink" title="char"></a>char</h4><ul>
+<li><h5 id="int-1"><a href="#int-1" class="headerlink" title="int"></a>int</h5><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> num = <span class="string">&#x27;3&#x27;</span> - <span class="string">&#x27;0&#x27;</span>;<span class="comment">//3</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//错误做法：</span></span><br><span class="line"><span class="type">char</span> c = <span class="number">1</span>;</span><br><span class="line">a = (<span class="type">int</span>)c;</span><br><span class="line">cout &lt;&lt; a;<span class="comment">//49</span></span><br></pre></td></tr></table></figure>
+</li>
+<li></li>
+</ul>
+<h4 id="int-2"><a href="#int-2" class="headerlink" title="int"></a>int</h4><ul>
+<li><h5 id="char-2"><a href="#char-2" class="headerlink" title="char"></a>char</h5><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">char</span> c = <span class="number">1</span> + <span class="string">&#x27;0&#x27;</span>;</span><br><span class="line"><span class="comment">//不可以用char c = char(1)</span></span><br></pre></td></tr></table></figure>
+</li>
+<li></li>
 </ul>
 ]]></content>
       <tags>
@@ -592,53 +606,106 @@
   <entry>
     <title>树</title>
     <url>/2022/08/09/%E6%A0%91/</url>
-    <content><![CDATA[<h5 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h5><ul>
-<li><p>一般树（7）<br>DFS&#x2F;BSF：1094</p>
-<p>路径：1053、1079、1090、1006</p>
-<p>公共祖先：1151</p>
-</li>
-<li><p>二叉树（6）<br>前中后序 + DFS&#x2F;BFS：1020、1127、1138、1119、1130、1102</p>
-</li>
-<li><p>完全二叉树（1）<br>1110</p>
-</li>
-<li><p>二叉查找树 BST（4）<br>1043、1064、1099、1115</p>
-</li>
-<li><p>平衡二叉树 AVL（2）<br>1066、1123</p>
-</li>
-<li><p>堆（2）<br>1147、1155</p>
-</li>
-<li><p>并查集（3）<br>1107、1114、1118</p>
-</li>
-<li><p>哈夫曼树</p>
-</li>
-</ul>
-<h4 id="静态写法构造树"><a href="#静态写法构造树" class="headerlink" title="静态写法构造树"></a>静态写法构造树</h4><ol>
+    <content><![CDATA[<h5 id="题目：-hamburger"><a href="#题目：-hamburger" class="headerlink" title="题目：:hamburger:"></a>题目：:hamburger:</h5><p>1094 25 The Largest Generation					树 DFS or BFS<br>1053 30 Path of Equal Weight			     		树 DFS 路径和，并且记录路径<br>1079 25 Total Sales of Supply Chain	  		树 DFS 叶子节点求和<br>1090 25 Highest Price in Supply Chain  		树 DFS 深度最大<br>1106 25 Lowest Price in Supply Chain   		树 DFS 深度最小<br>1004 30 Counting Leaves			 					树 BFS 每层有几个叶子节点<br>1086 25 Tree Traversals Again   		      		二叉树 顺序转变 先序+中序&#x3D;&gt;后序<br>1102 25 Invert a Binary Tree     			  		 二叉树 输出层序、中序<br>1020 25 Tree Traversals									二叉树 后序+中序&#x3D;&gt;层序  懒得重新做<br>1043 25 Is It a Binary Search Tree     	 		 BST二叉搜索树 建树、各种顺序输出<br>1064 30 Complete Binary Search Tree ☆ 	  BST二叉搜索树+CBT完全二叉树 中序转CBT、层序输出<br>1099 30 Build A Binary Search Tree     		   BST二叉搜索树 已知树的结构和序列，层序输出<br>1066 25 Root of AVL Tree							AVL树 插入操作 第一次写不是很熟</p>
+<h3 id="静态写法构造树"><a href="#静态写法构造树" class="headerlink" title="静态写法构造树"></a>静态写法构造树</h3><ol>
 <li><p><strong>结点没有数据，可能有多个孩子，利用vector数组记录，将结点的孩子push_back进父节点的数组中。</strong></p>
-<p>1094 The Largest Generation</p>
+<p>:star:1094 The Largest Generation:star:</p>
  <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">vector&lt;<span class="type">int</span>&gt; Node[MAXN];</span><br><span class="line">Node[<span class="number">1</span>].<span class="built_in">push_back</span>(<span class="number">2</span>);<span class="comment">//2是1的孩子</span></span><br></pre></td></tr></table></figure>
 </li>
 <li><p><strong>结点有数据，并且树的结点按照下标构成，可以考虑开创一个数组来记录数据</strong></p>
 </li>
 </ol>
-<p>   1079 Total Sales of Supply Chain</p>
+<p>   :star:1079 Total Sales of Supply Chain:star:</p>
    <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">vector&lt;<span class="type">int</span>&gt; chain[<span class="number">100010</span>];</span><br><span class="line"><span class="type">int</span> project[<span class="number">100010</span>];</span><br><span class="line">project[<span class="number">1</span>]=<span class="number">10</span>;<span class="comment">//1号结点的数据是10</span></span><br><span class="line">chain[<span class="number">1</span>].<span class="built_in">push_back</span>(<span class="number">2</span>);<span class="comment">//2是1的孩子</span></span><br></pre></td></tr></table></figure>
 
 <ol start="3">
 <li><p><strong>结点有数据，可能有多个孩子，构造结构体</strong></p>
-<p>1053 Path of Equal Weight</p>
+<p>:star:1053 Path of Equal Weight:star:</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">node</span> &#123;</span><br><span class="line">	<span class="type">int</span> data;</span><br><span class="line">	vector&lt;<span class="type">int</span>&gt; child;<span class="comment">//储存孩子在tree中的索引</span></span><br><span class="line">&#125;;</span><br><span class="line">node tree[<span class="number">110</span>];</span><br></pre></td></tr></table></figure>
 
 
 <p>宽度优先</p>
-<p>1004 Counting Leaves</p>
+<p>:star:1004 Counting Leaves:star:</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//BFS</span></span><br><span class="line">queue&lt;node&gt;q;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">BFS</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">while</span> (!q.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">		node top = q.<span class="built_in">front</span>();</span><br><span class="line">		q.<span class="built_in">pop</span>();</span><br><span class="line">		……</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; top.child.<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line">			……</span><br><span class="line">			q.<span class="built_in">push</span>(tree[top.child[i]]);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ol>
-<h4 id="构造二叉树"><a href="#构造二叉树" class="headerlink" title="构造二叉树"></a>构造二叉树</h4><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">node</span> &#123;</span><br><span class="line">	<span class="type">int</span> data;</span><br><span class="line">	node* lchild = <span class="literal">NULL</span>;</span><br><span class="line">	node* rchild = <span class="literal">NULL</span>;</span><br><span class="line">&#125;;</span><br><span class="line">node* root = <span class="keyword">new</span> <span class="built_in">node</span>();</span><br><span class="line">root -&gt; data = <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="构造二叉树"><a href="#构造二叉树" class="headerlink" title="构造二叉树"></a>构造二叉树</h3><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">node</span> &#123;</span><br><span class="line">	<span class="type">int</span> data;</span><br><span class="line">	node* lchild = <span class="literal">NULL</span>;</span><br><span class="line">	node* rchild = <span class="literal">NULL</span>;</span><br><span class="line">&#125;;</span><br><span class="line">node* root = <span class="keyword">new</span> <span class="built_in">node</span>();</span><br><span class="line">root -&gt; data = <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
 
-<h4 id="遍历转换"><a href="#遍历转换" class="headerlink" title="遍历转换"></a>遍历转换</h4><p><strong>中序序列可与先序序列、后序序列、层序序列中的任意一个来构造唯一的二叉树</strong></p>
-<h5 id="先序-中序-x3D-gt-后序"><a href="#先序-中序-x3D-gt-后序" class="headerlink" title="先序+中序&#x3D;&gt;后序"></a>先序+中序&#x3D;&gt;后序</h5><p>1086 Tree Traversals Again  </p>
+<h3 id="遍历转换"><a href="#遍历转换" class="headerlink" title="遍历转换"></a>遍历转换</h3><p><strong>中序序列可与先序序列、后序序列、层序序列中的任意一个来构造唯一的二叉树</strong></p>
+<h5 id="先序-中序-x3D-gt-后序"><a href="#先序-中序-x3D-gt-后序" class="headerlink" title="先序+中序&#x3D;&gt;后序"></a>先序+中序&#x3D;&gt;后序</h5><p>:star:1086 Tree Traversals Again  :star:</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//1、得到先序pre[maxn]和中序in[maxn]数组；</span></span><br><span class="line"><span class="type">int</span> pre[maxn],in[maxn];</span><br><span class="line">……</span><br><span class="line"><span class="comment">//2、构造后序</span></span><br><span class="line"><span class="function">node* <span class="title">create</span><span class="params">(<span class="type">int</span> preL, <span class="type">int</span> preR, <span class="type">int</span> inL, <span class="type">int</span> inR)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//若函数参数表达范围是[preL,preR]、[inL,inR]，递归结束条件为if (preL &gt; preR)</span></span><br><span class="line">	<span class="keyword">if</span> (preL + <span class="number">1</span> &gt; preR) &#123;<span class="comment">//函数参数表达范围是[preL,preR)、[inL,inR)</span></span><br><span class="line">		<span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	node* root = <span class="keyword">new</span> <span class="built_in">node</span>();</span><br><span class="line">    root-&gt;data = pre[preL];</span><br><span class="line">	<span class="type">int</span> i = inL;</span><br><span class="line">	<span class="keyword">for</span> (; i &lt; inR; i++) &#123;</span><br><span class="line">		<span class="keyword">if</span> (pre[preL] == in[i])</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">	&#125;</span><br><span class="line">    root-&gt;lchild = <span class="built_in">create</span>(preL + <span class="number">1</span>, preL + i - inL + <span class="number">1</span>, inL, i);</span><br><span class="line">	root-&gt;rchild = <span class="built_in">create</span>(preL + i - inL + <span class="number">1</span>, preR, i + <span class="number">1</span>, inR);</span><br><span class="line">	<span class="keyword">return</span> root;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<h3 id="二叉查找树BST"><a href="#二叉查找树BST" class="headerlink" title="二叉查找树BST"></a>二叉查找树BST</h3><ul>
+<li><strong>对BST进行中序遍历，遍历的结果是有序的。</strong></li>
+</ul>
+<h3 id="完全二叉树CBT"><a href="#完全二叉树CBT" class="headerlink" title="完全二叉树CBT"></a>完全二叉树CBT</h3><ul>
+<li>使用数组存放，则对于任何一个结点（设编号为n，<strong>根节点编号为1</strong>），其左孩子的下标为<strong>2n</strong>，右孩子为<strong>2n+1</strong>。</li>
+<li>CBT数组本身就是层序遍历</li>
+</ul>
+<ol>
+<li><p><strong>输入一串序列，可以得到唯一一颗完全二叉查找树</strong></p>
+<p>:star:1064 Complete Binary Search Tree :star::star::star:</p>
+<p>题解：</p>
+<ol>
+<li>对输入序列排序，排序后的数组，就是二叉查找树的中序遍历结果。</li>
+<li>根据中序和完全二叉树下标性质，得到CBT数组。</li>
+<li>CBT数组本身就是层序遍历，输出。</li>
+</ol>
+<p>已知中序遍历，求完全二叉树</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">int</span> N, num[<span class="number">1010</span>];</span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">cmp</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> a &lt; b;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> cbt[<span class="number">1010</span>], index = <span class="number">0</span>;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">inorder</span><span class="params">(<span class="type">int</span> root)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (root &gt; N) <span class="keyword">return</span>;</span><br><span class="line">	<span class="built_in">inorder</span>(root * <span class="number">2</span>);</span><br><span class="line">	cbt[root] = num[index++];</span><br><span class="line">	<span class="built_in">inorder</span>(root * <span class="number">2</span> + <span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	cin &gt;&gt; N;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">		cin &gt;&gt; num[i];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">sort</span>(num, num + N, cmp);</span><br><span class="line">	<span class="comment">//num是结果的中序遍历</span></span><br><span class="line">	<span class="built_in">inorder</span>(<span class="number">1</span>);</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt; N; i++) &#123;</span><br><span class="line">		cout &lt;&lt; cbt[i] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	cout &lt;&lt; cbt[N] &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="AVL平衡二叉树"><a href="#AVL平衡二叉树" class="headerlink" title="AVL平衡二叉树"></a>AVL平衡二叉树</h3><h4 id="结点定义"><a href="#结点定义" class="headerlink" title="结点定义"></a><strong>结点定义</strong></h4><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">node</span>&#123;</span><br><span class="line">	<span class="type">int</span> v, height = <span class="number">1</span>;</span><br><span class="line">	node* left = <span class="literal">NULL</span>, right = <span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="插入操作"><a href="#插入操作" class="headerlink" title="插入操作"></a><strong>插入操作</strong></h4><p>:heart:注意：左旋、右旋、插入的参数是<code>node* &amp;root</code>，加引用是因为会对root进行修改，需要记录最新的根节点。</p>
+<p>共六个函数：得到高度、更新高度、计算平衡因子、右旋、左旋、插入。</p>
+<table>
+<thead>
+<tr>
+<th align="center">树形</th>
+<th align="center">平衡因子</th>
+<th align="center">操作</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">LL &#x2F;</td>
+<td align="center">root&#x3D;2,root-&gt;left&#x3D;1</td>
+<td align="center">root右旋</td>
+</tr>
+<tr>
+<td align="center">LR &lt;</td>
+<td align="center">root&#x3D;2,root-&gt;left&#x3D;-1</td>
+<td align="center">root-&gt;left左旋，root右旋</td>
+</tr>
+<tr>
+<td align="center">RR \</td>
+<td align="center">root&#x3D;-2,root-&gt;right&#x3D;-1</td>
+<td align="center">root左旋</td>
+</tr>
+<tr>
+<td align="center">RL &gt;</td>
+<td align="center">root&#x3D;-2,root-&gt;right&#x3D;1</td>
+<td align="center">root-&gt;right右旋，root左旋</td>
+</tr>
+</tbody></table>
+<ol>
+<li><h5 id="高度"><a href="#高度" class="headerlink" title="高度"></a>高度</h5><p><strong>得到</strong></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">getHeight</span><span class="params">(node* root)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (root == <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="number">0</span>;<span class="comment">//注意root为空的情况</span></span><br><span class="line">	<span class="keyword">return</span> root-&gt;height;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>更新</strong></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">update</span><span class="params">(node* root)</span> </span>&#123;</span><br><span class="line">	root-&gt;height = <span class="built_in">max</span>(<span class="built_in">getgetHeight</span>(root-&gt;left), <span class="built_in">getgetHeight</span>(root-&gt;right)) + <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><h5 id="平衡因子"><a href="#平衡因子" class="headerlink" title="平衡因子"></a>平衡因子</h5><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">balance</span><span class="params">(node* root)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">getHeight</span>(root-&gt;left) - <span class="built_in">getHeight</span>(root-&gt;right);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><h5 id="右旋"><a href="#右旋" class="headerlink" title="右旋"></a>右旋</h5><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">R</span><span class="params">(node* &amp;root)</span> </span>&#123;</span><br><span class="line">	node* temp = root-&gt;left;</span><br><span class="line">	root-&gt;left = temp-&gt;right;</span><br><span class="line">	temp-&gt;right = root;</span><br><span class="line">	<span class="built_in">update</span>(root);</span><br><span class="line">	<span class="built_in">update</span>(temp);</span><br><span class="line">	root = temp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><h5 id="左旋"><a href="#左旋" class="headerlink" title="左旋"></a>左旋</h5><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">L</span><span class="params">(node*&amp; root)</span> </span>&#123;</span><br><span class="line">	node* temp = root-&gt;right;</span><br><span class="line">	root-&gt;right = temp-&gt;left;</span><br><span class="line">	temp-&gt;left = root;</span><br><span class="line">	<span class="built_in">update</span>(root);</span><br><span class="line">	<span class="built_in">update</span>(temp);</span><br><span class="line">	root = temp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><h5 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h5><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">insert</span><span class="params">(node*&amp; root, <span class="type">int</span> num)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (root == <span class="literal">NULL</span>) &#123;</span><br><span class="line">		root = <span class="keyword">new</span> <span class="built_in">node</span>();</span><br><span class="line">		root-&gt;data = num;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (num &lt; root-&gt;data) &#123;</span><br><span class="line">		<span class="built_in">insert</span>(root-&gt;left, num);</span><br><span class="line">		<span class="built_in">update</span>(root);</span><br><span class="line">		<span class="keyword">if</span> (<span class="built_in">balance</span>(root) &gt;= <span class="number">2</span>) &#123;</span><br><span class="line">			<span class="keyword">if</span> (<span class="built_in">balance</span>(root-&gt;left) &gt; <span class="number">0</span>) &#123;</span><br><span class="line">				<span class="built_in">R</span>(root);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span> &#123;</span><br><span class="line">				<span class="built_in">L</span>(root-&gt;left);</span><br><span class="line">				<span class="built_in">R</span>(root);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="built_in">insert</span>(root-&gt;right, num);</span><br><span class="line">		<span class="built_in">update</span>(root);</span><br><span class="line">		<span class="keyword">if</span> (<span class="built_in">balance</span>(root) &lt;= <span class="number">-2</span>) &#123;</span><br><span class="line">			<span class="keyword">if</span> (<span class="built_in">balance</span>(root-&gt;right) &lt; <span class="number">0</span>) &#123;</span><br><span class="line">				<span class="built_in">L</span>(root);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span> &#123;</span><br><span class="line">				<span class="built_in">R</span>(root-&gt;right);</span><br><span class="line">				<span class="built_in">L</span>(root);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">node* root = <span class="literal">NULL</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">    cin &gt;&gt; temp;</span><br><span class="line">    <span class="built_in">insert</span>(root, temp);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>recursively ：递归地</p>
+<p>traversal ：遍历;穿越;追踪;周游;树的遍历</p>
+<p>sequence ： 序列; 顺序;  按顺序排列;  </p>
 ]]></content>
       <tags>
         <tag>算法</tag>
