@@ -245,10 +245,10 @@
 <ul>
 <li><p>是否全部连通：搜一次看看每个点是否都踩到。 </p>
 </li>
-<li><p>找最深节点： <strong>两次深度优先搜索，随机一个结点DFS后保留最深的结点们，然后从这些结点中的其中任意一个开始DFS得到最深的结点们，这两个结点集合的并集就是所求</strong> 。</p>
+<li><p>找最深节点： <strong>两次深度优先搜索，随机一个结点DFS后保留最深的结点们，然后从这些结点中的其中任意一个开始DFS得到最深的结点们，这两个结点集合的并集就是所求</strong> 。 </p>
+<p>​	<a target="_blank" rel="noopener" href="https://imgtu.com/i/vUrTat"><img src="https://s1.ax1x.com/2022/08/14/vUrTat.md.png" alt="vUrTat.md.png"></a></p>
 </li>
 </ul>
-<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/vUrTat"><img src="https://s1.ax1x.com/2022/08/14/vUrTat.md.png" alt="vUrTat.md.png"></a></p>
 <p>DFS统计最深：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">DFS</span><span class="params">(<span class="type">int</span> root, <span class="type">int</span> d)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (d &gt; big) &#123;</span><br><span class="line">		big = d;</span><br><span class="line">		far.<span class="built_in">clear</span>();</span><br><span class="line">		far.<span class="built_in">push_back</span>(root);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (d == big) &#123;</span><br><span class="line">		far.<span class="built_in">push_back</span>(root);</span><br><span class="line">	&#125;</span><br><span class="line">	flag[root] = <span class="literal">true</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= N; i++) &#123;</span><br><span class="line">		<span class="keyword">if</span> (!flag[i] &amp;&amp; G[root][i])</span><br><span class="line">			<span class="built_in">DFS</span>(i, d + <span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
